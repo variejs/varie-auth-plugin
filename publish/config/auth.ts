@@ -5,6 +5,8 @@ export default {
   guards: {
     user: {
       driver: "JwtDriver",
+      storagePath: "auth.jwt",
+      refreshToken: true,
       loginAfterReset: true,
       loginAfterRegister: true,
       endpoints: {

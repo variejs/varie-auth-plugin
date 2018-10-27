@@ -8,18 +8,21 @@ export default class JwtDriverMiddleware
   private authService;
   private storageService;
 
+  protected storagePath;
+
   constructor(
     @inject("AuthService") authService,
     @inject("StorageService") storageService: StorageServiceInterface
   ) {
     this.authService = authService;
     this.storageService = storageService;
+    this.storagePath = this.authService.getGuardConfig("storagePath");
   }
 
   // @ts-ignore
   public request(config) {
     return new Promise(resolve => {
-      let token = JSON.parse(this.storageService.get("auth.token"));
+      let token = JSON.parse(this.storageService.get(this.storagePath));
       if (token) {
         if (
           !config.url.includes(
@@ -29,7 +32,7 @@ export default class JwtDriverMiddleware
         ) {
           this.authService.refresh().then(
             () => {
-              token = JSON.parse(this.storageService.get("auth.token"));
+              token = JSON.parse(this.storageService.get(this.storagePath));
               config.headers.common.Authorization = `${token.token_type} ${
                 token.access_token
               }`;

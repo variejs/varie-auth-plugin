@@ -12,7 +12,7 @@ export default class JwtDriver {
   private configService;
   private storageService;
 
-  protected tokenName = "auth.token";
+  protected storagePath;
 
   constructor(
     @inject("AuthService") authService,
@@ -26,6 +26,7 @@ export default class JwtDriver {
     this.configService = configService;
     this.storageService = storageService;
     this.$store = stateService.getStore();
+    this.storagePath = this.authService.getGuardConfig("storagePath");
   }
 
   public async loginResponse(response) {
@@ -62,7 +63,7 @@ export default class JwtDriver {
       return true;
     }
 
-    if (this.storageService.get(this.tokenName)) {
+    if (this.storageService.get(this.storagePath)) {
       return await this.$store.dispatch("auth/getUser").then(
         () => {
           return true;
@@ -78,7 +79,7 @@ export default class JwtDriver {
 
   private setAuthToken(response) {
     this.storageService.set(
-      this.tokenName,
+      this.storagePath,
       JSON.stringify({
         access_token:
           response.data[this.authService.getGuardConfig("token.accessToken")],
@@ -93,6 +94,6 @@ export default class JwtDriver {
   }
 
   private removeAuthToken() {
-    this.storageService.remove(this.tokenName);
+    this.storageService.remove(this.storagePath);
   }
 }

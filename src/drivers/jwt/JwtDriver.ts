@@ -5,7 +5,7 @@ import StateServiceInterface from "varie/lib/state/StateServiceInterface";
 import StorageServiceInterface from "varie/lib/storage/StorageServiceInterface";
 
 @injectable()
-export default class JwtGuard {
+export default class JwtDriver {
   private $store;
   private authService;
   private httpService;

@@ -3,7 +3,7 @@ import StorageServiceInterface from "varie/lib/storage/StorageServiceInterface";
 import AxiosHttpMiddlewareInterface from "varie/lib/http/AxiosHttpMiddlewareInterface";
 
 @injectable()
-export default class JwtGuardMiddleware
+export default class JwtDriverMiddleware
   implements AxiosHttpMiddlewareInterface {
   private authService;
   private storageService;

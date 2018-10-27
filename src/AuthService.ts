@@ -1,4 +1,4 @@
-import JwtGuard from "./guards/jwt/JwtGuard";
+import JwtDriver from "./drivers/jwt/JwtDriver";
 import { injectable, inject } from "inversify";
 import AuthServiceInterface from "./AuthServiceInterface";
 import ConfigInterface from "varie/lib/config/ConfigInterface";
@@ -98,7 +98,8 @@ export default class AuthService implements AuthServiceInterface {
     );
   }
 
-  private getDriver(): JwtGuard {
+  // TODO - drivers should have an interface
+  private getDriver(): JwtDriver {
     return this.app.make(this.getGuardConfig("driver"));
   }
 }

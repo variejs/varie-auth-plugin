@@ -1,6 +1,6 @@
 import { injectable, inject } from "inversify";
-import AuthServiceInterface from "varie/lib/authentication/AuthServiceInterface";
 import RouteMiddlewareInterface from "varie/lib/routing/RouteMiddlewareInterface";
+import AuthServiceInterface from "varie-authentication-plugin/lib/AuthServiceInterface";
 
 @injectable()
 export default class Auth implements RouteMiddlewareInterface {

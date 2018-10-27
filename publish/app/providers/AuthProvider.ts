@@ -1,5 +1,5 @@
 import ServiceProvider from "varie/lib/support/ServiceProvider";
-import JwtGuard from "varie/lib/authentication/guards/jwt/JwtGuard";
+import JwtGuard from "varie-authentication-plugin/lib/guards/jwt/JwtGuard";
 
 export default class AuthenticationServiceProvider extends ServiceProvider {
   public register() {

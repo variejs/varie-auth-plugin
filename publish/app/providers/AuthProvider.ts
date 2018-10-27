@@ -1,6 +1,6 @@
 import AuthService from "@app/services/AuthService";
 import ServiceProvider from "varie/lib/support/ServiceProvider";
-import JwtDriver from "varie-authentication-plugin/lib/guards/jwt/JwtDriver";
+import JwtDriver from "varie-authentication-plugin/lib/drivers/jwt/JwtDriver";
 
 export default class AuthenticationServiceProvider extends ServiceProvider {
   public register() {

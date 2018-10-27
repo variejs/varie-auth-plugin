@@ -1,6 +1,6 @@
 # varie-authentication-plugin
 
- This is a start at an auth package 
+This is a start at an auth package
 
 - [ ] Configurable State Params
 - [ ] Publishing files needed for auth
@@ -11,4 +11,4 @@
 - [ ] Finalize Config
 - [ ] Move to Auth Plugin Repo
 - [ ] Documentation
-- [ ] Update Varie 
+- [ ] Update Varie

@@ -1,2 +1,1 @@
-export default class CookieGuard {
-}
+export default class CookieGuard {}

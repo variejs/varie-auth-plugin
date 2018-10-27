@@ -1,8 +1,8 @@
 import { inject, injectable } from "inversify";
-import ConfigInterface from 'varie/lib/config/ConfigInterface'
-import HttpServiceInterface from 'varie/lib/http/HttpServiceInterface'
-import StateServiceInterface from 'varie/lib/state/StateServiceInterface'
-import StorageServiceInterface from 'varie/lib/storage/StorageServiceInterface'
+import ConfigInterface from "varie/lib/config/ConfigInterface";
+import HttpServiceInterface from "varie/lib/http/HttpServiceInterface";
+import StateServiceInterface from "varie/lib/state/StateServiceInterface";
+import StorageServiceInterface from "varie/lib/storage/StorageServiceInterface";
 
 @injectable()
 export default class JwtGuard {
@@ -19,7 +19,7 @@ export default class JwtGuard {
     @inject("ConfigService") configService: ConfigInterface,
     @inject("HttpService") httpService: HttpServiceInterface,
     @inject("StateService") stateService: StateServiceInterface,
-    @inject("StorageService") storageService : StorageServiceInterface
+    @inject("StorageService") storageService: StorageServiceInterface
   ) {
     this.httpService = httpService;
     this.authService = authService;

@@ -3,7 +3,7 @@ import { injectable, inject } from "inversify";
 import AuthServiceInterface from "./AuthServiceInterface";
 import ConfigInterface from "varie/lib/config/ConfigInterface";
 import HttpServiceInterface from "varie/lib/http/HttpServiceInterface";
-import ApplicationInterface from 'varie/lib/foundation/ApplicationInterface'
+import ApplicationInterface from "varie/lib/foundation/ApplicationInterface";
 
 @injectable()
 export default class AuthService implements AuthServiceInterface {

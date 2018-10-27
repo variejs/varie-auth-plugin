@@ -1,7 +1,7 @@
-import ConfigInterface from 'varie/lib/config/ConfigInterface';
-import HttpServiceInterface from 'varie/lib/http/HttpServiceInterface';
-import StateServiceInterface from 'varie/lib/state/StateServiceInterface';
-import StorageServiceInterface from 'varie/lib/storage/StorageServiceInterface';
+import ConfigInterface from "varie/lib/config/ConfigInterface";
+import HttpServiceInterface from "varie/lib/http/HttpServiceInterface";
+import StateServiceInterface from "varie/lib/state/StateServiceInterface";
+import StorageServiceInterface from "varie/lib/storage/StorageServiceInterface";
 export default class JwtGuard {
     private $store;
     private authService;

@@ -1,4 +1,4 @@
-import StorageServiceInterface from 'varie/lib/storage/StorageServiceInterface';
+import StorageServiceInterface from "varie/lib/storage/StorageServiceInterface";
 import AxiosHttpMiddlewareInterface from "varie/lib/http/AxiosHttpMiddlewareInterface";
 export default class JwtGuardMiddleware implements AxiosHttpMiddlewareInterface {
     private authService;

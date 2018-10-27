@@ -40,9 +40,9 @@ export default function(authService: AuthService) {
       });
     },
     logout: (context: ActionContext<AuthState, RootState>) => {
-      return new Promise(resolve => {
+      return authService.logout().then(response => {
         context.commit("REMOVE_AUTH");
-        resolve();
+        return response;
       });
     }
   };

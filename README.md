@@ -2,7 +2,7 @@
 
 This is a start at an auth package
 
-- [ ] Configurable State Params
+- [x] Configurable State Params
 - [ ] Publishing files needed for auth
 - [x] Pre-made Auth Components
 - [x] JWT Guard

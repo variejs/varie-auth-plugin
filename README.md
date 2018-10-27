@@ -9,6 +9,6 @@ This is a start at an auth package
 - [ ] Cookie Guard
 - [x] Auth Middleware
 - [ ] Finalize Config
-- [ ] Move to Auth Plugin Repo
+- [x] Move to Auth Plugin Repo
 - [ ] Documentation
 - [ ] Update Varie

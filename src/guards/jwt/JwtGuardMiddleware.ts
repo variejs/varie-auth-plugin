@@ -1,6 +1,6 @@
 import { inject, injectable } from "inversify";
-import StorageServiceInterface from "./../../../storage/StorageServiceInterface";
-import AxiosHttpMiddlewareInterface from "./../../../http/AxiosHttpMiddlewareInterface";
+import StorageServiceInterface from 'varie/lib/storage/StorageServiceInterface'
+import AxiosHttpMiddlewareInterface from "varie/lib/http/AxiosHttpMiddlewareInterface";
 
 @injectable()
 export default class JwtGuardMiddleware

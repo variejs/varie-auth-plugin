@@ -1,9 +1,9 @@
 import JwtGuard from "./guards/jwt/JwtGuard";
 import { injectable, inject } from "inversify";
-import ConfigInterface from "../config/ConfigInterface";
 import AuthServiceInterface from "./AuthServiceInterface";
-import HttpServiceInterface from "../http/HttpServiceInterface";
-import ApplicationInterface from "../foundation/ApplicationInterface";
+import ConfigInterface from "varie/lib/config/ConfigInterface";
+import HttpServiceInterface from "varie/lib/http/HttpServiceInterface";
+import ApplicationInterface from 'varie/lib/foundation/ApplicationInterface'
 
 @injectable()
 export default class AuthService implements AuthServiceInterface {

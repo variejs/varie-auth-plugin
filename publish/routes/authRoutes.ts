@@ -1,5 +1,5 @@
 import LoginViews from "@views/LoginViews";
-import RouterInterface from "../../../routing/RouterInterface";
+import RouterInterface from "varie/lib/routing/RouterInterface";
 
 export default function($router: RouterInterface) {
   $router.area(LoginViews.AuthArea).group(() => {

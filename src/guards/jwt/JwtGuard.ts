@@ -33,7 +33,9 @@ export default class JwtGuard {
     return await this.$store.dispatch("auth/getUser");
   }
 
-  public async logoutResponse(response) {}
+  public async logoutResponse(response) {
+    this.removeAuthToken();
+  }
 
   public async refreshResponse(response) {
     this.setAuthToken(response);
@@ -88,5 +90,9 @@ export default class JwtGuard {
             response.data[this.authService.getGuardConfig("token.expiresIn")]
       })
     );
+  }
+
+  private removeAuthToken() {
+    this.storageService.remove(this.tokenName);
   }
 }

@@ -27,15 +27,18 @@ export default class JwtGuardMiddleware
           ) &&
           token.expires_at < new Date().getTime()
         ) {
-          this.authService.refresh().then(() => {
-            token = JSON.parse(this.storageService.get("auth.token"));
-            config.headers.common.Authorization = `${token.token_type} ${
-              token.access_token
-            }`;
-            resolve(config);
-          }, () => {
-            resolve(config)
-          });
+          this.authService.refresh().then(
+            () => {
+              token = JSON.parse(this.storageService.get("auth.token"));
+              config.headers.common.Authorization = `${token.token_type} ${
+                token.access_token
+              }`;
+              resolve(config);
+            },
+            () => {
+              resolve(config);
+            }
+          );
         } else {
           config.headers.common.Authorization = `${token.token_type} ${
             token.access_token

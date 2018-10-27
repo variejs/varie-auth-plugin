@@ -1,0 +1,19 @@
+{
+  "name": "varie-authentication-plugin",
+  "version": "0.0.1",
+  "description": "A authentication plugin for Varie",
+  "main": "index.js",
+  "scripts": {
+    "publish": "TODO - not sure if this is possible"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/variejs/varie-authentication-plugin.git"
+  },
+  "keywords": [
+    "Varie",
+    "Auth"
+  ],
+  "author": "Luke Policinski <Luke@LukePOLO.com>",
+  "license": "MIT"
+}

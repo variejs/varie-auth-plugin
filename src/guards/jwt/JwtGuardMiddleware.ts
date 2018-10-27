@@ -33,6 +33,8 @@ export default class JwtGuardMiddleware
               token.access_token
             }`;
             resolve(config);
+          }, () => {
+            resolve(config)
           });
         } else {
           config.headers.common.Authorization = `${token.token_type} ${

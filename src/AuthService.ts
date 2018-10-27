@@ -88,8 +88,8 @@ export default class AuthService implements AuthServiceInterface {
     return this.httpService.get(this.getGuardConfig("endpoints.user"));
   }
 
-  public isLoggedIn() {
-    return this.getDriver().isLoggedIn();
+  public hasLoggedIn() {
+    return this.getDriver().hasLoggedIn();
   }
 
   public getGuardConfig(config): any {

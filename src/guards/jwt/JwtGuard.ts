@@ -57,7 +57,7 @@ export default class JwtGuard {
     }
   }
 
-  public async isLoggedIn() {
+  public async hasLoggedIn() {
     if (this.$store.state.auth.user) {
       return true;
     }

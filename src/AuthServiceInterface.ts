@@ -17,5 +17,5 @@ export default interface AuthServiceInterface {
   );
   getUser(): Promise<any>;
   getGuardConfig(config: string);
-  isLoggedIn(): Promise<boolean>;
+  hasLoggedIn(): Promise<boolean>;
 }

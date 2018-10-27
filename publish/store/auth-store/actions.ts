@@ -6,32 +6,25 @@ import AuthService from "@app/services/AuthService";
 export default function(authService: AuthService) {
   return {
     login: (context: ActionContext<AuthState, RootState>, data) => {
-      return authService.login(data.email, data.password).then(response => {
+      return authService.login(data).then(response => {
         return response;
       });
     },
-    register: (context: ActionContext<AuthState, RootState>, form) => {
-      return authService
-        .register(form.name, form.email, form.password, form.passwordConfirmed)
-        .then(response => {
-          return response;
-        });
+    register: (context: ActionContext<AuthState, RootState>, data) => {
+      return authService.register(data).then(response => {
+        return response;
+      });
     },
     forgotPasswordRequest: (
       context: ActionContext<AuthState, RootState>,
-      form
+      data
     ) => {
-      return authService.forgotPasswordRequest(form.email);
+      return authService.forgotPasswordRequest(data);
     },
-    resetPassword: (
-      context: ActionContext<AuthState, RootState>,
-      { token, form }
-    ) => {
-      return authService
-        .resetPassword(token, form.email, form.password, form.passwordConfirmed)
-        .then(response => {
-          return response;
-        });
+    resetPassword: (context: ActionContext<AuthState, RootState>, data) => {
+      return authService.resetPassword(data).then(response => {
+        return response;
+      });
     },
     getUser: (context: ActionContext<AuthState, RootState>) => {
       return authService.getUser().then(response => {

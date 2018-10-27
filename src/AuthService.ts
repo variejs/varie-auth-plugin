@@ -1,5 +1,5 @@
-import JwtDriver from "./drivers/jwt/JwtDriver";
 import { injectable, inject } from "inversify";
+import JwtDriver from "./drivers/jwt/JwtDriver";
 import AuthServiceInterface from "./AuthServiceInterface";
 import ConfigInterface from "varie/lib/config/ConfigInterface";
 import HttpServiceInterface from "varie/lib/http/HttpServiceInterface";
@@ -21,12 +21,9 @@ export default class AuthService implements AuthServiceInterface {
     this.configService = configService;
   }
 
-  public login(email, password) {
+  public login(data) {
     return this.httpService
-      .post(this.getGuardConfig("endpoints.login"), {
-        email,
-        password
-      })
+      .post(this.getGuardConfig("endpoints.login"), data)
       .then(response => {
         return this.getDriver().loginResponse(response);
       });
@@ -48,37 +45,25 @@ export default class AuthService implements AuthServiceInterface {
       });
   }
 
-  public register(name, email, password, confirmPassword) {
+  public register(data) {
     return this.httpService
-      .post(this.getGuardConfig("endpoints.register"), {
-        name,
-        email,
-        password,
-        password_confirmation: confirmPassword
-      })
+      .post(this.getGuardConfig("endpoints.register"), data)
       .then(response => {
         return this.getDriver().registerResponse(response);
       });
   }
 
-  public forgotPasswordRequest(email) {
+  public forgotPasswordRequest(data) {
     return this.httpService
-      .post(this.getGuardConfig("endpoints.forgotPassword"), {
-        email
-      })
+      .post(this.getGuardConfig("endpoints.forgotPassword"), data)
       .then(response => {
         return this.getDriver().forgotPasswordRequestResponse(response);
       });
   }
 
-  public resetPassword(token, email, password, confirmPassword) {
+  public resetPassword(data) {
     return this.httpService
-      .post(this.getGuardConfig("endpoints.resetPassword"), {
-        email,
-        token,
-        password,
-        password_confirmation: confirmPassword
-      })
+      .post(this.getGuardConfig("endpoints.resetPassword"), data)
       .then(response => {
         return this.getDriver().resetPasswordResponse(response);
       });

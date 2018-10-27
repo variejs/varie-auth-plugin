@@ -33,7 +33,10 @@ export default class AuthService implements AuthServiceInterface {
     return this.httpService
       .post(this.getGuardConfig("endpoints.refresh"))
       .then(response => {
-        return this.getDriver().refreshResponse(response);
+        let driver = this.getDriver();
+        if (driver.refreshResponse) {
+          return driver.refreshResponse(response);
+        }
       });
   }
 

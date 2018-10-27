@@ -1,9 +1,9 @@
 import { injectable, inject } from "inversify";
-import JwtDriver from "./drivers/jwt/JwtDriver";
 import AuthServiceInterface from "./AuthServiceInterface";
 import ConfigInterface from "varie/lib/config/ConfigInterface";
 import HttpServiceInterface from "varie/lib/http/HttpServiceInterface";
 import ApplicationInterface from "varie/lib/foundation/ApplicationInterface";
+import AuthenticationDriverInterface from "./drivers/AuthenticationDriverInterface";
 
 @injectable()
 export default class AuthService implements AuthServiceInterface {
@@ -57,7 +57,7 @@ export default class AuthService implements AuthServiceInterface {
     return this.httpService
       .post(this.getGuardConfig("endpoints.forgotPassword"), data)
       .then(response => {
-        return this.getDriver().forgotPasswordRequestResponse(response);
+        return response;
       });
   }
 
@@ -83,8 +83,7 @@ export default class AuthService implements AuthServiceInterface {
     );
   }
 
-  // TODO - drivers should have an interface
-  private getDriver(): JwtDriver {
+  private getDriver(): AuthenticationDriverInterface {
     return this.app.make(this.getGuardConfig("driver"));
   }
 }

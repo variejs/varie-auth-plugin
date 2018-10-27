@@ -12,4 +12,4 @@ This is a start at an auth package
 - [x] Move to Auth Plugin Repo
 - [ ] Documentation
 - [ ] Update Varie
-- [ ] Switching of drivers through middleware? 
+- [ ] Switching of drivers through middleware?

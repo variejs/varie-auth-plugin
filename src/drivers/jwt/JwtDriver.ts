@@ -2,10 +2,11 @@ import { inject, injectable } from "inversify";
 import ConfigInterface from "varie/lib/config/ConfigInterface";
 import HttpServiceInterface from "varie/lib/http/HttpServiceInterface";
 import StateServiceInterface from "varie/lib/state/StateServiceInterface";
+import AuthenticationDriverInterface from "../AuthenticationDriverInterface";
 import StorageServiceInterface from "varie/lib/storage/StorageServiceInterface";
 
 @injectable()
-export default class JwtDriver {
+export default class JwtDriver implements AuthenticationDriverInterface {
   private $store;
   private authService;
   private httpService;
@@ -48,8 +49,6 @@ export default class JwtDriver {
       return await this.$store.dispatch("auth/getUser");
     }
   }
-
-  public async forgotPasswordRequestResponse(response) {}
 
   public async resetPasswordResponse(response) {
     if (this.authService.getGuardConfig("loginAfterReset")) {

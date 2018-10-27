@@ -6,7 +6,7 @@ This is a start at an auth package
 - [ ] Publishing files needed for auth
 - [x] Pre-made Auth Components
 - [x] JWT Guard
-- [ ] Cookie Guard
+- [x] Cookie Guard
 - [x] Auth Middleware
 - [ ] Finalize Config
 - [x] Move to Auth Plugin Repo

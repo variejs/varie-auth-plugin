@@ -2,10 +2,23 @@
   "name": "varie-authentication-plugin",
   "version": "0.0.1",
   "description": "A authentication plugin for Varie",
-  "main": "index.js",
+  "main": "./index.js",
   "scripts": {
+    "build": "tsc",
+    "watch": "tsc --watch",
+    "precommit": "lint-staged",
     "publish": "TODO - not sure if this is possible"
   },
+  "lint-staged": {
+    "/src/*.{js,json,css,md,vue}": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "files": [
+    "lib",
+    "publish"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/variejs/varie-authentication-plugin.git"

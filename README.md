@@ -2,7 +2,7 @@
 
 This is a start at an auth package
 
-- [ ] Configurable State Params
+- [x] Configurable State Params
 - [ ] Publishing files needed for auth
 - [x] Pre-made Auth Components
 - [x] JWT Guard
@@ -12,3 +12,4 @@ This is a start at an auth package
 - [x] Move to Auth Plugin Repo
 - [ ] Documentation
 - [ ] Update Varie
+- [ ] Switching of drivers through middleware? 

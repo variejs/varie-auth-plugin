@@ -13,7 +13,8 @@ export default class JwtDriver implements AuthenticationDriverInterface {
   private configService;
   private storageService;
 
-  protected storagePath;
+  // TEMP
+  private storagePath;
 
   constructor(
     @inject("AuthService") authService,
@@ -27,7 +28,8 @@ export default class JwtDriver implements AuthenticationDriverInterface {
     this.configService = configService;
     this.storageService = storageService;
     this.$store = stateService.getStore();
-    this.storagePath = this.authService.getGuardConfig("storagePath");
+    // TODO
+    this.storagePath = "auth";
   }
 
   public async loginResponse(response) {
@@ -62,7 +64,7 @@ export default class JwtDriver implements AuthenticationDriverInterface {
       return true;
     }
 
-    if (this.storageService.get(this.storagePath)) {
+    if (this.storageService.get(`${this.storagePath}.${guard}`)) {
       return await this.$store.dispatch("auth/getUser").then(
         () => {
           return true;
@@ -77,7 +79,10 @@ export default class JwtDriver implements AuthenticationDriverInterface {
   }
 
   public async middlewareRequest(config) {
-    let token = JSON.parse(this.storageService.get(this.storagePath));
+    let guard = config.guard || this.authService.getDefaultGuard();
+    let token = JSON.parse(
+      this.storageService.get(`${this.storagePath}.${guard}`)
+    );
     if (token) {
       if (
         !config.url.includes(
@@ -115,7 +120,7 @@ export default class JwtDriver implements AuthenticationDriverInterface {
 
   private setAuthToken(response) {
     this.storageService.set(
-      this.storagePath,
+      `${this.storagePath}.${response.config.guard}`,
       JSON.stringify({
         access_token:
           response.data[this.authService.getGuardConfig("token.accessToken")],

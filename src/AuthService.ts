@@ -109,4 +109,8 @@ export default class AuthService implements AuthServiceInterface {
   public getDriver(guard?): AuthenticationDriverInterface {
     return this.app.make(this.getGuardConfig("driver", guard));
   }
+
+  public getStoragePath() {
+    return this.configService.get("auth.defaults.storagePath", "admin");
+  }
 }

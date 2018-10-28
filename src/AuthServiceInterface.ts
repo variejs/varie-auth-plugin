@@ -8,4 +8,5 @@ export default interface AuthServiceInterface {
   getUser(guard?: string): Promise<any>;
   getGuardConfig(config: string, guard?: string);
   isLoggedIn(guard?: string): Promise<boolean>;
+  getStoragePath(): string;
 }

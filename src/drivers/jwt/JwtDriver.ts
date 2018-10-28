@@ -1,6 +1,4 @@
 import { inject, injectable } from "inversify";
-import ConfigInterface from "varie/lib/config/ConfigInterface";
-import HttpServiceInterface from "varie/lib/http/HttpServiceInterface";
 import StateServiceInterface from "varie/lib/state/StateServiceInterface";
 import AuthenticationDriverInterface from "../AuthenticationDriverInterface";
 import StorageServiceInterface from "varie/lib/storage/StorageServiceInterface";
@@ -9,7 +7,6 @@ import StorageServiceInterface from "varie/lib/storage/StorageServiceInterface";
 export default class JwtDriver implements AuthenticationDriverInterface {
   private $store;
   private authService;
-  private httpService;
   private configService;
   private storageService;
 
@@ -18,20 +15,13 @@ export default class JwtDriver implements AuthenticationDriverInterface {
 
   constructor(
     @inject("AuthService") authService,
-    @inject("ConfigService") configService: ConfigInterface,
-    @inject("HttpService") httpService: HttpServiceInterface,
     @inject("StateService") stateService: StateServiceInterface,
     @inject("StorageService") storageService: StorageServiceInterface
   ) {
-    this.httpService = httpService;
     this.authService = authService;
-    this.configService = configService;
     this.storageService = storageService;
     this.$store = stateService.getStore();
-    this.storagePath = this.configService.get(
-      "auth.defaults.storagePath",
-      "admin"
-    );
+    this.storagePath = this.authService.getStoragePath();
   }
 
   public async loginResponse(response) {

@@ -32,7 +32,6 @@ export default class JwtDriver implements AuthenticationDriverInterface {
       "auth.defaults.storagePath",
       "admin"
     );
-    alert(this.storagePath);
   }
 
   public async loginResponse(response) {

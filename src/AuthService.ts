@@ -21,72 +21,90 @@ export default class AuthService implements AuthServiceInterface {
     this.configService = configService;
   }
 
-  public login(data) {
+  public login(data, guard?) {
     return this.httpService
-      .post(this.getGuardConfig("endpoints.login"), data)
+      .post(this.getGuardConfig("endpoints.login", guard), data, {
+        guard
+      })
       .then(response => {
-        return this.getDriver().loginResponse(response);
+        return this.getDriver(guard).loginResponse(response);
       });
   }
 
-  public refresh() {
+  public refresh(guard?) {
     return this.httpService
-      .post(this.getGuardConfig("endpoints.refresh"))
+      .post(this.getGuardConfig("endpoints.refresh", guard), {
+        guard
+      })
       .then(response => {
-        let driver = this.getDriver();
+        let driver = this.getDriver(guard);
         if (driver.refreshResponse) {
           return driver.refreshResponse(response);
         }
       });
   }
 
-  public logout() {
+  public logout(guard?) {
     return this.httpService
-      .post(this.getGuardConfig("endpoints.logout"))
+      .post(this.getGuardConfig("endpoints.logout", guard), {
+        guard
+      })
       .then(response => {
-        return this.getDriver().logoutResponse(response);
+        return this.getDriver(guard).logoutResponse(response);
       });
   }
 
-  public register(data) {
+  public register(data, guard?) {
     return this.httpService
-      .post(this.getGuardConfig("endpoints.register"), data)
+      .post(this.getGuardConfig("endpoints.register", guard), data, {
+        guard
+      })
       .then(response => {
-        return this.getDriver().registerResponse(response);
+        return this.getDriver(guard).registerResponse(response);
       });
   }
 
-  public forgotPasswordRequest(data) {
+  public forgotPasswordRequest(data, guard?) {
     return this.httpService
-      .post(this.getGuardConfig("endpoints.forgotPassword"), data)
+      .post(this.getGuardConfig("endpoints.forgotPassword", guard), data, {
+        guard
+      })
       .then(response => {
         return response;
       });
   }
 
-  public resetPassword(data) {
+  public resetPassword(data, guard?) {
     return this.httpService
-      .post(this.getGuardConfig("endpoints.resetPassword"), data)
+      .post(this.getGuardConfig("endpoints.resetPassword", guard), data, {
+        guard
+      })
       .then(response => {
-        return this.getDriver().resetPasswordResponse(response);
+        return this.getDriver(guard).resetPasswordResponse(response);
       });
   }
 
-  public getUser() {
-    return this.httpService.get(this.getGuardConfig("endpoints.user"));
+  public getUser(guard?) {
+    return this.httpService.get(this.getGuardConfig("endpoints.user", guard), {
+      guard
+    });
   }
 
-  public hasLoggedIn() {
-    return this.getDriver().hasLoggedIn();
+  public hasLoggedIn(guard?) {
+    return this.getDriver(guard).hasLoggedIn();
   }
 
-  public getGuardConfig(config): any {
+  public getDefaultGuard() {
+    return this.configService.get("auth.defaults.guard");
+  }
+
+  public getGuardConfig(config, guard?): any {
     return this.configService.get(
-      `auth.guards.${this.configService.get("auth.defaults.guard")}.${config}`
+      `auth.guards.${guard || this.getDefaultGuard()}.${config}`
     );
   }
 
-  private getDriver(): AuthenticationDriverInterface {
-    return this.app.make(this.getGuardConfig("driver"));
+  public getDriver(guard?): AuthenticationDriverInterface {
+    return this.app.make(this.getGuardConfig("driver", guard));
   }
 }

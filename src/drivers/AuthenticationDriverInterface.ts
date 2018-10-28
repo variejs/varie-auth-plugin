@@ -7,4 +7,6 @@ export default interface AuthenticationDriverInterface {
   refreshResponse?(response): Promise<any>;
   registerResponse(response): Promise<any>;
   resetPasswordResponse(response): Promise<any>;
+  middlewareRequest(config): Promise<any>;
+  middlewareResponse(response): Promise<any>;
 }

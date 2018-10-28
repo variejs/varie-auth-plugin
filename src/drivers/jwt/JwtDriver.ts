@@ -76,6 +76,42 @@ export default class JwtDriver implements AuthenticationDriverInterface {
     return false;
   }
 
+  public async middlewareRequest(config) {
+    let token = JSON.parse(this.storageService.get(this.storagePath));
+    if (token) {
+      if (
+        !config.url.includes(
+          this.authService.getGuardConfig("endpoints.refresh")
+        ) &&
+        token.expires_at < new Date().getTime()
+      ) {
+        this.authService.refresh().then(
+          () => {
+            token = JSON.parse(this.storageService.get(this.storagePath));
+            config.headers.common.Authorization = `${token.token_type} ${
+              token.access_token
+            }`;
+            return config;
+          },
+          () => {
+            return config;
+          }
+        );
+      } else {
+        config.headers.common.Authorization = `${token.token_type} ${
+          token.access_token
+        }`;
+        return config;
+      }
+    } else {
+      return config;
+    }
+  }
+
+  public async middlewareResponse(response) {
+    return response;
+  }
+
   private setAuthToken(response) {
     this.storageService.set(
       this.storagePath,

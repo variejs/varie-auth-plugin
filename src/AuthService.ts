@@ -106,6 +106,10 @@ export default class AuthService implements AuthServiceInterface {
     );
   }
 
+  public getGuardFromResponse(response) {
+    return response.config.guard || this.getDefaultGuard();
+  }
+
   public getDriver(guard?): AuthenticationDriverInterface {
     return this.app.make(this.getGuardConfig("driver", guard));
   }

@@ -30,7 +30,7 @@ export default class JwtDriver implements AuthenticationDriverInterface {
   }
 
   public async logoutResponse(response) {
-    this.removeAuthToken();
+    this.removeAuthToken(this.authService.getGuardFromResponse(response));
   }
 
   public async refreshResponse(response) {
@@ -112,7 +112,7 @@ export default class JwtDriver implements AuthenticationDriverInterface {
 
   private setAuthToken(response) {
     this.storageService.set(
-      `${this.storagePath}.${response.config.guard}`,
+      `${this.storagePath}.${this.authService.getGuardFromResponse(response)}`,
       JSON.stringify({
         access_token:
           response.data[this.authService.getGuardConfig("token.accessToken")],
@@ -126,7 +126,7 @@ export default class JwtDriver implements AuthenticationDriverInterface {
     );
   }
 
-  private removeAuthToken() {
-    this.storageService.remove(this.storagePath);
+  private removeAuthToken(guard) {
+    this.storageService.remove(`${this.storagePath}.${guard}`);
   }
 }

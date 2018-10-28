@@ -46,7 +46,7 @@ export default class CookieDriver implements AuthenticationDriverInterface {
     }
   }
 
-  public async hasLoggedIn() {
+  public async isLoggedIn() {
     if (this.$store.state.auth.user) {
       return true;
     }

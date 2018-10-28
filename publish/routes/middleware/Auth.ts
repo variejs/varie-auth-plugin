@@ -11,8 +11,8 @@ export default class Auth implements RouteMiddlewareInterface {
   }
 
   handler(to, from, next) {
-    this.authService.hasLoggedIn().then(hasLoggedIn => {
-      if (hasLoggedIn) {
+    this.authService.isLoggedIn().then(isLoggedIn => {
+      if (isLoggedIn) {
         return next();
       }
       return next({

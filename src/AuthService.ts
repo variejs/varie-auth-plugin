@@ -90,8 +90,10 @@ export default class AuthService implements AuthServiceInterface {
     });
   }
 
-  public hasLoggedIn(guard?) {
-    return this.getDriver(guard).hasLoggedIn();
+  public isLoggedIn(guard?) {
+    return this.getDriver(guard).isLoggedIn(
+      guard || this.configService.get("auth.defaults.guard")
+    );
   }
 
   public getDefaultGuard() {

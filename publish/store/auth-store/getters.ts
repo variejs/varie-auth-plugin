@@ -2,8 +2,8 @@ import { AuthState } from "./stateInterface";
 
 export default function() {
   return {
-    isLoggedIn: (state: AuthState) => {
-      return state.user;
+    user: (state: AuthState) => guard => {
+      return state.guards[guard];
     }
   };
 }

@@ -57,8 +57,8 @@ export default class JwtDriver implements AuthenticationDriverInterface {
     }
   }
 
-  public async hasLoggedIn() {
-    if (this.$store.state.auth.user) {
+  public async isLoggedIn(guard) {
+    if (this.$store.getters["auth/user"](guard)) {
       return true;
     }
 
@@ -94,6 +94,7 @@ export default class JwtDriver implements AuthenticationDriverInterface {
             return config;
           },
           () => {
+            this.removeAuthToken();
             return config;
           }
         );

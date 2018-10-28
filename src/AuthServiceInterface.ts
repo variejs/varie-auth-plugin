@@ -7,5 +7,5 @@ export default interface AuthServiceInterface {
   resetPassword(data: any, guard?: string);
   getUser(guard?: string): Promise<any>;
   getGuardConfig(config: string, guard?: string);
-  hasLoggedIn(guard?: string): Promise<boolean>;
+  isLoggedIn(guard?: string): Promise<boolean>;
 }

@@ -1,11 +1,11 @@
 export default {
   defaults: {
-    guard: "user"
+    guard: "user",
+    storagePath: "auth"
   },
   guards: {
     user: {
-      driver: "JwtDriver",
-      storagePath: "auth.jwt",
+      driver: "JwtDriver", // or CookieDriver
       refreshToken: true,
       loginAfterReset: true,
       loginAfterRegister: true,

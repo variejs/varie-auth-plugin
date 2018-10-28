@@ -28,8 +28,11 @@ export default class JwtDriver implements AuthenticationDriverInterface {
     this.configService = configService;
     this.storageService = storageService;
     this.$store = stateService.getStore();
-    // TODO
-    this.storagePath = "auth";
+    this.storagePath = this.configService.get(
+      "auth.defaults.storagePath",
+      "admin"
+    );
+    alert(this.storagePath);
   }
 
   public async loginResponse(response) {

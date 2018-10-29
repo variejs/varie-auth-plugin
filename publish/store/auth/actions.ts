@@ -6,7 +6,7 @@ import AuthService from "@app/services/AuthService";
 export default function(authService: AuthService) {
   return {
     login: (context: ActionContext<AuthState, RootState>, data) => {
-      return authService.login(data, "admin").then(response => {
+      return authService.login(data).then(response => {
         return response;
       });
     },
@@ -27,7 +27,7 @@ export default function(authService: AuthService) {
       });
     },
     getUser: (context: ActionContext<AuthState, RootState>) => {
-      return authService.getUser("admin").then(response => {
+      return authService.getUser().then(response => {
         context.commit("SET_AUTH_USER", {
           user: response.data,
           guard: "user"

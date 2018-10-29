@@ -3,7 +3,6 @@ import { AuthState } from "./stateInterface";
 export default function() {
   return {
     SET_AUTH_USER: (state: AuthState, { user, guard = "user" }) => {
-      console.info(user);
       state.guards[guard] = user;
     },
     REMOVE_AUTH: (state: AuthState, guard) => {

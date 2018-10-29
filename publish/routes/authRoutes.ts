@@ -1,4 +1,4 @@
-import LoginViews from "@views/LoginViews";
+import LoginViews from "@views/login";
 import RouterInterface from "varie/lib/routing/RouterInterface";
 
 export default function($router: RouterInterface) {

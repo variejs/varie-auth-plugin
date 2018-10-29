@@ -39,5 +39,6 @@
     "Auth"
   ],
   "author": "Luke Policinski <Luke@LukePOLO.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "variePublishable" : true
 }

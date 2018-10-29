@@ -91,7 +91,7 @@ export default class JwtDriver implements AuthenticationDriverInterface {
             return config;
           },
           () => {
-            this.removeAuthToken();
+            this.removeAuthToken(guard);
             return config;
           }
         );

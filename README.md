@@ -8,7 +8,7 @@ This is a start at an auth package
 - [x] JWT Guard
 - [x] Cookie Guard
 - [x] Auth Middleware
-- [ ] Finalize Config
+- [x] Finalize Config
 - [x] Move to Auth Plugin Repo
 - [ ] Documentation
 - [x] Update Varie

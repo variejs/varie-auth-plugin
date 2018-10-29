@@ -3,7 +3,7 @@ import AuthServiceInterface from "./AuthServiceInterface";
 import ConfigInterface from "varie/lib/config/ConfigInterface";
 import HttpServiceInterface from "varie/lib/http/HttpServiceInterface";
 import ApplicationInterface from "varie/lib/foundation/ApplicationInterface";
-import AuthenticationDriverInterface from "./drivers/AuthenticationDriverInterface";
+import AuthDriverInterface from "./drivers/AuthDriverInterface";
 
 @injectable()
 export default class AuthService implements AuthServiceInterface {
@@ -110,7 +110,7 @@ export default class AuthService implements AuthServiceInterface {
     return response.config.guard || this.getDefaultGuard();
   }
 
-  public getDriver(guard?): AuthenticationDriverInterface {
+  public getDriver(guard?): AuthDriverInterface {
     return this.app.make(this.getGuardConfig("driver", guard));
   }
 

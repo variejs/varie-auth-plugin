@@ -1,11 +1,11 @@
 import { inject, injectable } from "inversify";
+import AuthDriverInterface from "../AuthDriverInterface";
 import ConfigInterface from "varie/lib/config/ConfigInterface";
 import HttpServiceInterface from "varie/lib/http/HttpServiceInterface";
 import StateServiceInterface from "varie/lib/state/StateServiceInterface";
-import AuthenticationDriverInterface from "../AuthenticationDriverInterface";
 
 @injectable()
-export default class CookieDriver implements AuthenticationDriverInterface {
+export default class CookieDriver implements AuthDriverInterface {
   private $store;
   private authService;
   private httpService;

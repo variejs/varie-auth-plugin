@@ -1,6 +1,6 @@
 import { inject, injectable } from "inversify";
 
-export default interface AuthenticationDriverInterface {
+export default interface AuthDriverInterface {
   loginResponse(response): Promise<any>;
   logoutResponse(response);
   isLoggedIn(guard: string): Promise<boolean>;

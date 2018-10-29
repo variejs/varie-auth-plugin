@@ -11,5 +11,5 @@ This is a start at an auth package
 - [ ] Finalize Config
 - [x] Move to Auth Plugin Repo
 - [ ] Documentation
-- [ ] Update Varie
+- [x] Update Varie
 - [x] Use of multiple guards

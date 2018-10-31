@@ -1,6 +1,6 @@
 {
   "name": "varie-auth-plugin",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "A authentication plugin for Varie",
   "main": "./index.js",
   "devDependencies": {
@@ -17,8 +17,7 @@
   "scripts": {
     "build": "tsc",
     "watch": "tsc --watch",
-    "precommit": "lint-staged",
-    "publish": "TODO - not sure if this is possible"
+    "precommit": "lint-staged"
   },
   "lint-staged": {
     "/src/*.{js,json,css,md,vue}": [

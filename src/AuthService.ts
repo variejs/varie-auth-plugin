@@ -1,9 +1,9 @@
 import { injectable, inject } from "inversify";
 import AuthServiceInterface from "./AuthServiceInterface";
 import ConfigInterface from "varie/lib/config/ConfigInterface";
+import AuthDriverInterface from "./drivers/AuthDriverInterface";
 import HttpServiceInterface from "varie/lib/http/HttpServiceInterface";
 import ApplicationInterface from "varie/lib/foundation/ApplicationInterface";
-import AuthDriverInterface from "./drivers/AuthDriverInterface";
 
 @injectable()
 export default class AuthService implements AuthServiceInterface {

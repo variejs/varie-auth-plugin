@@ -9,5 +9,5 @@ export default interface AuthServiceInterface {
   getGuardConfig(config: string, guard?: string);
   isLoggedIn(guard?: string): Promise<boolean>;
   getStoragePath(): string;
-  getGuardFromResponse(): string;
+  getGuardFromResponse(response): string;
 }

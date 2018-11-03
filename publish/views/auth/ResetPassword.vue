@@ -3,21 +3,21 @@
         <h1>Reset Password</h1>
         <router-link :to="{ name : 'login' }">Or Login</router-link>
 
-        <form @submit.prevent="resetPassword">
+        <form v-form="form" @submit.prevent="resetPassword">
 
             <div class="form-group">
                 <label for="email">Email</label>
-                <input id="email" name="email" label="Email" type="email" v-model="form.email">
+                <input id="email" name="email" label="Email" type="email" v-model="form.email" validate>
             </div>
 
             <div class="form-group">
                 <label for="password">Password</label>
-                <input id="password" name="password" type="password" v-model="form.password">
+                <input id="password" name="password" type="password" v-model="form.password" validate>
             </div>
 
             <div class="form-group">
                 <label for="confirm-password">Confirm Password</label>
-                <input id="confirm-password" name="confirm-password" type="password" v-model="form.password_confirmation">
+                <input id="confirm-password" name="confirm-password" type="password" v-model="form.password_confirmation" validate>
             </div>
 
             <div class="form-group">

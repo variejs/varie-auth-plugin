@@ -3,15 +3,15 @@
         <h1>Login</h1>
         <router-link @click.prevent :to="{ name : 'register' }">Or Create Account</router-link>
 
-        <form @submit.prevent="login">
+        <form v-form="form" @submit.prevent="login">
             <div class="form-group">
                 <label for="email">Email</label>
-                <input id="email" name="email" type="email" v-model="form.email">
+                <input id="email" name="email" type="email" v-model="form.email" validate>
             </div>
 
             <div class="form-group">
                 <label for="password">Password</label>
-                <input id="password" type="password" name="password" v-model="form.password">
+                <input id="password" type="password" name="password" v-model="form.password" validate>
             </div>
 
             <div class="form-group">

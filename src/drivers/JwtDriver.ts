@@ -1,6 +1,6 @@
 import { inject, injectable } from "inversify";
+import AuthDriverInterface from "./AuthDriverInterface";
 import StateServiceInterface from "varie/lib/state/StateServiceInterface";
-import AuthDriverInterface from "../AuthDriverInterface";
 import StorageServiceInterface from "varie/lib/storage/StorageServiceInterface";
 
 @injectable()

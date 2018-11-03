@@ -7,11 +7,13 @@ export default function(authService: AuthService) {
   return {
     login: (context: ActionContext<AuthState, RootState>, data) => {
       return authService.login(data).then(response => {
+        context.commit("RESET_AUTH_AREA_DATA");
         return response;
       });
     },
     register: (context: ActionContext<AuthState, RootState>, data) => {
       return authService.register(data).then(response => {
+        context.commit("RESET_AUTH_AREA_DATA");
         return response;
       });
     },
@@ -23,6 +25,7 @@ export default function(authService: AuthService) {
     },
     resetPassword: (context: ActionContext<AuthState, RootState>, data) => {
       return authService.resetPassword(data).then(response => {
+        context.commit("RESET_AUTH_AREA_DATA");
         return response;
       });
     },
@@ -38,6 +41,7 @@ export default function(authService: AuthService) {
     logout: (context: ActionContext<AuthState, RootState>) => {
       return authService.logout().then(response => {
         context.commit("REMOVE_AUTH");
+        context.commit("RESET_AUTH_AREA_DATA");
         return response;
       });
     }

@@ -1,6 +1,6 @@
 {
   "name": "varie-auth-plugin",
-  "version": "0.0.3",
+  "version": "0.0.4-next",
   "description": "A authentication plugin for Varie",
   "main": "./index.js",
   "devDependencies": {

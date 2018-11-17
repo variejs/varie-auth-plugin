@@ -72,9 +72,7 @@ export default class JwtDriver implements AuthDriverInterface {
 
   public async middlewareRequest(config) {
     let guard = config.guard || this.authService.getDefaultGuard();
-    let token = JSON.parse(
-      this.storageService.get(`${this.storagePath}.${guard}`)
-    );
+    let token = this.getAuthToken(guard);
     if (token) {
       if (
         !config.url.includes(
@@ -84,7 +82,6 @@ export default class JwtDriver implements AuthDriverInterface {
       ) {
         this.authService.refresh().then(
           () => {
-            token = JSON.parse(this.storageService.get(this.storagePath));
             config.headers.common.Authorization = `${token.token_type} ${
               token.access_token
             }`;
@@ -104,6 +101,16 @@ export default class JwtDriver implements AuthDriverInterface {
     } else {
       return config;
     }
+  }
+
+  private getAuthToken(guard) {
+      try {
+          return JSON.parse(
+              this.storageService.get(`${this.storagePath}.${guard}`)
+          );
+      } catch(e) {
+          return null;
+      }
   }
 
   public async middlewareResponse(response) {

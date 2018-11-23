@@ -13,10 +13,8 @@ export default function() {
     },
     RESET_AUTH_AREA_DATA: (state: AuthState) => {
       state.authAreaData = Object.assign(state.authAreaData, {
-        name: null,
         email: null,
-        password: null,
-        confirm_password: null
+        password: null
       });
     }
   };

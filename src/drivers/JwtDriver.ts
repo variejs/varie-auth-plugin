@@ -6,12 +6,9 @@ import StorageServiceInterface from "varie/lib/storage/StorageServiceInterface";
 @injectable()
 export default class JwtDriver implements AuthDriverInterface {
   private $store;
-  private authService;
-  private configService;
-  private storageService;
-
-  // TEMP
   private storagePath;
+  private authService;
+  private storageService;
 
   constructor(
     @inject("AuthService") authService,
@@ -56,7 +53,7 @@ export default class JwtDriver implements AuthDriverInterface {
       return true;
     }
 
-    if (this.storageService.get(`${this.storagePath}.${guard}`)) {
+    if (this.getAuthToken(guard)) {
       return await this.$store.dispatch("auth/getUser").then(
         () => {
           return true;
@@ -72,9 +69,7 @@ export default class JwtDriver implements AuthDriverInterface {
 
   public async middlewareRequest(config) {
     let guard = config.guard || this.authService.getDefaultGuard();
-    let token = JSON.parse(
-      this.storageService.get(`${this.storagePath}.${guard}`)
-    );
+    let token = this.getAuthToken(guard);
     if (token) {
       if (
         !config.url.includes(
@@ -84,11 +79,13 @@ export default class JwtDriver implements AuthDriverInterface {
       ) {
         this.authService.refresh().then(
           () => {
-            token = JSON.parse(this.storageService.get(this.storagePath));
-            config.headers.common.Authorization = `${token.token_type} ${
-              token.access_token
-            }`;
-            return config;
+            token = this.getAuthToken(guard);
+            if (token) {
+              config.headers.common.Authorization = `${token.token_type} ${
+                token.access_token
+              }`;
+              return config;
+            }
           },
           () => {
             this.removeAuthToken(guard);
@@ -124,6 +121,22 @@ export default class JwtDriver implements AuthDriverInterface {
             response.data[this.authService.getGuardConfig("token.expiresIn")]
       })
     );
+  }
+
+  private getAuthToken(
+    guard
+  ): {
+    access_token: string;
+    token_type: string;
+    expires_at: number;
+  } | null {
+    let token = this.storageService.get(`${this.storagePath}.${guard}`);
+    try {
+      return JSON.parse(token);
+    } catch (e) {
+      this.removeAuthToken(guard);
+      return null;
+    }
   }
 
   private removeAuthToken(guard) {

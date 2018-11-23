@@ -67,9 +67,7 @@
 
 <template>
   <div class="auth-area">
-      <div class="auth-area__container">
-          <router-view></router-view>
-      </div>
+    <div class="auth-area__container"><router-view></router-view></div>
   </div>
 </template>
 

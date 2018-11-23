@@ -1,42 +1,62 @@
 <template>
-    <div>
-        <h1>Create Account</h1>
-        <router-link :to="{ name : 'login' }">Or Login</router-link>
-        <p>Fill out the following fields to create your account.</p>
+  <div>
+    <h1>Create Account</h1>
+    <router-link :to="{ name: 'login' }">Or Login</router-link>
+    <p>Fill out the following fields to create your account.</p>
 
-        <form v-form="form" @submit.prevent="register">
+    <form v-form="form" @submit.prevent="register">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input id="name" name="name" v-model="form.name" validate />
+      </div>
 
-            <div class="form-group">
-                <label for="name">Name</label>
-                <input id="name" name="name" v-model="form.name" validate>
-            </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input
+          id="email"
+          name="email"
+          type="email"
+          v-model="form.email"
+          validate
+        />
+      </div>
 
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input id="email" name="email" type="email" v-model="form.email" validate>
-            </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input
+          id="password"
+          name="password"
+          type="password"
+          v-model="form.password"
+          validate
+        />
+      </div>
 
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input id="password" name="password" type="password" v-model="form.password" validate>
-            </div>
+      <div class="form-group">
+        <label for="confirm-password">Confirm Password</label>
+        <input
+          id="confirm-password"
+          name="confirm-password"
+          type="password"
+          v-model="form.password_confirmation"
+          validate
+        />
+      </div>
 
-            <div class="form-group">
-                <label for="confirm-password">Confirm Password</label>
-                <input id="confirm-password" name="confirm-password" type="password" v-model="form.password_confirmation" validate>
-            </div>
+      <div class="form-group">
+        <button class="btn btn--blue" :disabed="!form.isValid()">
+          Sign Up
+        </button>
+      </div>
 
-            <div class="form-group">
-                <button class="btn btn--blue" :disabed="!form.isValid()">Sign Up</button>
-            </div>
-
-            <div class="form-group">
-                <router-link :to="{ name : 'forgot-password' }" >Forgot password?</router-link>
-            </div>
-        </form>
-    </div>
+      <div class="form-group">
+        <router-link :to="{ name: 'forgot-password' }"
+          >Forgot password?</router-link
+        >
+      </div>
+    </form>
+  </div>
 </template>
-
 
 <script>
 import Vue from "vue";

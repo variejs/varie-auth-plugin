@@ -1,22 +1,26 @@
 import AuthStore from "@store/auth/AuthStore";
 import AuthService from "@app/services/AuthService";
+import ConfigInterface from 'varie/lib/config/ConfigInterface';
 import AxiosHttpService from "varie/lib/http/AxiosHttpService";
 import JwtDriver from "varie-auth-plugin/lib/drivers/JwtDriver";
 import ServiceProvider from "varie/lib/support/ServiceProvider";
 import AuthMiddleware from "varie-auth-plugin/lib/AuthMiddleware";
-// import CookieDriver from "varie-auth-plugin/lib/drivers/CookieDriver";
+import CookieDriver from "varie-auth-plugin/lib/drivers/CookieDriver";
 import StateServiceInterface from "varie/lib/state/StateServiceInterface";
 
 export default class AuthServiceProvider extends ServiceProvider {
   public async boot() {
     let authService = this.app.make<AuthService>("AuthService");
     let $httpService = this.app.make<AxiosHttpService>("HttpService");
+    let configService = this.app.make<ConfigInterface>('ConfigService');
     let stateService = this.app.make<StateServiceInterface>("StateService");
 
     $httpService.registerMiddleware(AuthMiddleware);
     stateService.registerStore(AuthStore);
 
-    await authService.isLoggedIn();
+    if(configService.get('auth.authOnBoot')) {
+      await authService.isLoggedIn();
+    }
   }
 
   public async register() {

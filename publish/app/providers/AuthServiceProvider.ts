@@ -8,15 +8,18 @@ import AuthMiddleware from "varie-auth-plugin/lib/AuthMiddleware";
 import StateServiceInterface from "varie/lib/state/StateServiceInterface";
 
 export default class AuthServiceProvider extends ServiceProvider {
-  public boot() {
+  public async boot() {
+    let authService = this.app.make<AuthService>("AuthService");
     let $httpService = this.app.make<AxiosHttpService>("HttpService");
     let stateService = this.app.make<StateServiceInterface>("StateService");
 
     $httpService.registerMiddleware(AuthMiddleware);
     stateService.registerStore(AuthStore);
+
+    await authService.isLoggedIn();
   }
 
-  public register() {
+  public async register() {
     this.app.singleton("JwtDriver", JwtDriver);
     // this.app.singleton("CookieDriver", CookieDriver);
     this.app.bind("AuthService", AuthService);

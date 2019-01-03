@@ -60,4 +60,12 @@ export default class CookieDriver implements AuthDriverInterface {
       }
     );
   }
+
+  public async middlewareRequest(config) {
+    return config;
+  }
+
+  public async middlewareResponse(response) {
+    return response;
+  }
 }

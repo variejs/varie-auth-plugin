@@ -1,5 +1,5 @@
 export default {
-  authOnBoot : true,
+  authOnBoot: true,
   defaults: {
     guard: "user",
     storagePath: "auth"

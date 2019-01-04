@@ -40,7 +40,7 @@ export default function(authService: AuthService) {
     },
     logout: (context: ActionContext<AuthState, RootState>) => {
       return authService.logout().then(response => {
-        context.commit("REMOVE_AUTH");
+        context.commit("REMOVE_AUTH", "user");
         context.commit("RESET_AUTH_AREA_DATA");
         return response;
       });

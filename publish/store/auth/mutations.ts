@@ -5,7 +5,7 @@ export default function() {
     SET_AUTH_USER: (state: AuthState, { user, guard = "user" }) => {
       state.guards[guard] = user;
     },
-    REMOVE_AUTH: (state: AuthState, guard) => {
+    REMOVE_AUTH: (state: AuthState, guard = "user") => {
       state.guards[guard] = null;
     },
     UPDATE_AUTH_AREA_DATA: (state: AuthState, data) => {

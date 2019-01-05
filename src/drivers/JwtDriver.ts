@@ -5,10 +5,10 @@ import StorageServiceInterface from "varie/lib/storage/StorageServiceInterface";
 
 @injectable()
 export default class JwtDriver implements AuthDriverInterface {
-  private $store;
-  private storagePath;
-  private authService;
-  private storageService;
+  protected $store;
+  protected storagePath;
+  protected authService;
+  protected storageService;
 
   constructor(
     @inject("AuthService") authService,
@@ -107,7 +107,7 @@ export default class JwtDriver implements AuthDriverInterface {
     return response;
   }
 
-  private setAuthToken(response) {
+  protected setAuthToken(response) {
     this.storageService.set(
       `${this.storagePath}.${this.authService.getGuardFromResponse(response)}`,
       JSON.stringify({
@@ -123,7 +123,7 @@ export default class JwtDriver implements AuthDriverInterface {
     );
   }
 
-  private getAuthToken(
+  protected getAuthToken(
     guard
   ): {
     access_token: string;
@@ -139,7 +139,7 @@ export default class JwtDriver implements AuthDriverInterface {
     }
   }
 
-  private removeAuthToken(guard) {
+  protected removeAuthToken(guard) {
     this.storageService.remove(`${this.storagePath}.${guard}`);
   }
 }

@@ -6,10 +6,10 @@ import StateServiceInterface from "varie/lib/state/StateServiceInterface";
 
 @injectable()
 export default class CookieDriver implements AuthDriverInterface {
-  private $store;
-  private authService;
-  private httpService;
-  private configService;
+  protected $store;
+  protected authService;
+  protected httpService;
+  protected configService;
 
   protected storagePath;
 

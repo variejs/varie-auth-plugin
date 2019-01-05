@@ -3,7 +3,7 @@ import AxiosHttpMiddlewareInterface from "varie/lib/http/AxiosHttpMiddlewareInte
 
 @injectable()
 export default class AuthMiddleware implements AxiosHttpMiddlewareInterface {
-  private authService;
+  protected authService;
 
   constructor(@inject("AuthService") authService) {
     this.authService = authService;

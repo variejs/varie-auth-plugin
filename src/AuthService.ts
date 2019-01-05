@@ -7,9 +7,9 @@ import ApplicationInterface from "varie/lib/foundation/ApplicationInterface";
 
 @injectable()
 export default class AuthService implements AuthServiceInterface {
-  private app: ApplicationInterface;
-  private configService: ConfigInterface;
-  private httpService: HttpServiceInterface;
+  protected app: ApplicationInterface;
+  protected configService: ConfigInterface;
+  protected httpService: HttpServiceInterface;
 
   constructor(
     @inject("app") app,

@@ -77,7 +77,7 @@ export default class JwtDriver implements AuthDriverInterface {
         ) &&
         token.expires_at < new Date().getTime()
       ) {
-        this.authService.refresh().then(
+        return this.authService.refresh().then(
           () => {
             token = this.getAuthToken(guard);
             if (token) {

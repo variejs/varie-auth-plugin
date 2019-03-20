@@ -52,13 +52,13 @@ export default Vue.extend({
     return {
       form: this.createForm({
         email: null,
-        password: null
+        password: null,
       }).validation({
         rules: {
           email: "required|email",
-          password: "required|min:8"
-        }
-      })
+          password: "required|min:8",
+        },
+      }),
     };
   },
   methods: {
@@ -67,15 +67,15 @@ export default Vue.extend({
         () => {
           this.form.reset();
           this.$router.push({
-            name: "dashboard"
+            name: "dashboard",
           });
         },
-        error => {
+        (error) => {
           // You should handle your error based on your error message
           this.alertService.showError("Login Failed.");
-        }
+        },
       );
-    }
-  }
+    },
+  },
 });
 </script>

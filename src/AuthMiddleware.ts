@@ -13,7 +13,7 @@ export default class AuthMiddleware implements AxiosHttpMiddlewareInterface {
     return this.authService
       .getDriver(config.guard)
       .middlewareRequest(config)
-      .then(config => {
+      .then((config) => {
         return config;
       });
   }
@@ -22,7 +22,7 @@ export default class AuthMiddleware implements AxiosHttpMiddlewareInterface {
     return this.authService
       .getDriver(response.config.guard)
       .middlewareResponse(response)
-      .then(response => {
+      .then((response) => {
         return response;
       });
   }

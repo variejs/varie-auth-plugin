@@ -55,7 +55,7 @@ export default Vue.extend({
     if (!this.token) {
       this.alertService.showError("Invalid Reset Password Token");
       this.$router.push({
-        name: "login"
+        name: "login",
       });
     }
   },
@@ -64,13 +64,13 @@ export default Vue.extend({
       form: this.createForm({
         email: null,
         password: null,
-        passwordConfirmed: null
+        passwordConfirmed: null,
       }).validation({
         rules: {
           email: "required|email",
-          password: "required|min:8|confirmed"
-        }
-      })
+          password: "required|min:8|confirmed",
+        },
+      }),
     };
   },
   methods: {
@@ -80,27 +80,27 @@ export default Vue.extend({
           "auth/resetPassword",
           Object.assign({
             ...this.form.data(),
-            token: this.token
-          })
+            token: this.token,
+          }),
         )
         .then(
           () => {
             this.form.reset();
             this.$router.push({
-              name: "dashboard"
+              name: "dashboard",
             });
           },
-          error => {
+          (error) => {
             // You should handle your error based on your error message
             this.alertService.showError("Reset Password Failed.");
-          }
+          },
         );
-    }
+    },
   },
   computed: {
     token() {
       return this.$route.query.token;
-    }
-  }
+    },
+  },
 });
 </script>

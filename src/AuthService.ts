@@ -14,7 +14,7 @@ export default class AuthService implements AuthServiceInterface {
   constructor(
     @inject("app") app,
     @inject("ConfigService") configService: ConfigInterface,
-    @inject("HttpService") httpService: HttpServiceInterface
+    @inject("HttpService") httpService: HttpServiceInterface,
   ) {
     this.app = app;
     this.httpService = httpService;
@@ -24,9 +24,9 @@ export default class AuthService implements AuthServiceInterface {
   public login(data, guard?) {
     return this.httpService
       .post(this.getGuardConfig("endpoints.login", guard), data, {
-        guard
+        guard,
       })
-      .then(response => {
+      .then((response) => {
         return this.getDriver(guard).loginResponse(response);
       });
   }
@@ -34,9 +34,9 @@ export default class AuthService implements AuthServiceInterface {
   public refresh(guard?) {
     return this.httpService
       .post(this.getGuardConfig("endpoints.refresh", guard), {
-        guard
+        guard,
       })
-      .then(response => {
+      .then((response) => {
         let driver = this.getDriver(guard);
         if (driver.refreshResponse) {
           return driver.refreshResponse(response);
@@ -47,9 +47,9 @@ export default class AuthService implements AuthServiceInterface {
   public logout(guard?) {
     return this.httpService
       .post(this.getGuardConfig("endpoints.logout", guard), {
-        guard
+        guard,
       })
-      .then(response => {
+      .then((response) => {
         return this.getDriver(guard).logoutResponse(response);
       });
   }
@@ -57,9 +57,9 @@ export default class AuthService implements AuthServiceInterface {
   public register(data, guard?) {
     return this.httpService
       .post(this.getGuardConfig("endpoints.register", guard), data, {
-        guard
+        guard,
       })
-      .then(response => {
+      .then((response) => {
         return this.getDriver(guard).registerResponse(response);
       });
   }
@@ -67,9 +67,9 @@ export default class AuthService implements AuthServiceInterface {
   public forgotPasswordRequest(data, guard?) {
     return this.httpService
       .post(this.getGuardConfig("endpoints.forgotPassword", guard), data, {
-        guard
+        guard,
       })
-      .then(response => {
+      .then((response) => {
         return response;
       });
   }
@@ -77,22 +77,22 @@ export default class AuthService implements AuthServiceInterface {
   public resetPassword(data, guard?) {
     return this.httpService
       .post(this.getGuardConfig("endpoints.resetPassword", guard), data, {
-        guard
+        guard,
       })
-      .then(response => {
+      .then((response) => {
         return this.getDriver(guard).resetPasswordResponse(response);
       });
   }
 
   public getUser(guard?) {
     return this.httpService.get(this.getGuardConfig("endpoints.user", guard), {
-      guard
+      guard,
     });
   }
 
   public isLoggedIn(guard?) {
     return this.getDriver(guard).isLoggedIn(
-      guard || this.configService.get("auth.defaults.guard")
+      guard || this.configService.get("auth.defaults.guard"),
     );
   }
 
@@ -102,7 +102,7 @@ export default class AuthService implements AuthServiceInterface {
 
   public getGuardConfig(config, guard?): any {
     return this.configService.get(
-      `auth.guards.${guard || this.getDefaultGuard()}.${config}`
+      `auth.guards.${guard || this.getDefaultGuard()}.${config}`,
     );
   }
 

@@ -2,7 +2,7 @@ export default {
   authOnBoot: true,
   defaults: {
     guard: "user",
-    storagePath: "auth"
+    storagePath: "auth",
   },
   guards: {
     user: {
@@ -17,13 +17,13 @@ export default {
         refresh: "/auth/refresh",
         register: "/auth/register",
         resetPassword: "/auth/reset-password",
-        forgotPassword: "/auth/forgot-password"
+        forgotPassword: "/auth/forgot-password",
       },
       token: {
         expiresIn: "expires_in",
         accessToken: "access_token",
-        tokenTypeName: "token_type"
-      }
-    }
-  }
+        tokenTypeName: "token_type",
+      },
+    },
+  },
 };

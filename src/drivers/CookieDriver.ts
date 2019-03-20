@@ -17,7 +17,7 @@ export default class CookieDriver implements AuthDriverInterface {
     @inject("AuthService") authService,
     @inject("ConfigService") configService: ConfigInterface,
     @inject("HttpService") httpService: HttpServiceInterface,
-    @inject("StateService") stateService: StateServiceInterface
+    @inject("StateService") stateService: StateServiceInterface,
   ) {
     this.httpService = httpService;
     this.authService = authService;
@@ -57,7 +57,7 @@ export default class CookieDriver implements AuthDriverInterface {
       },
       () => {
         return false;
-      }
+      },
     );
   }
 

@@ -1,12 +1,18 @@
-import { inject, injectable } from "inversify";
+import HttpResponseInterface from "varie/lib/http/interfaces/HttpResponseInterface";
+import HttpRequestConfigInterface from "varie/lib/http/interfaces/HttpRequestConfigInterface";
 
 export default interface AuthDriverInterface {
-  loginResponse(response): Promise<any>;
-  logoutResponse(response);
+  loginResponse(response: HttpResponseInterface): Promise<any>;
+  logoutResponse(response: HttpResponseInterface): Promise<any>;
+  clearStorage?(guard: string): void;
   isLoggedIn(guard: string): Promise<boolean>;
-  refreshResponse?(response): Promise<any>;
-  registerResponse(response): Promise<any>;
-  resetPasswordResponse(response): Promise<any>;
-  middlewareRequest(config): Promise<any>;
-  middlewareResponse(response): Promise<any>;
+  refreshResponse?(response: HttpResponseInterface): Promise<any>;
+  registerResponse(response: HttpResponseInterface): Promise<any>;
+  resetPasswordResponse(response: HttpResponseInterface): Promise<any>;
+  middlewareRequest(
+    config: HttpRequestConfigInterface,
+  ): Promise<HttpRequestConfigInterface>;
+  middlewareResponse(
+    response: HttpResponseInterface,
+  ): Promise<HttpResponseInterface>;
 }

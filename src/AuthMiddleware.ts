@@ -1,8 +1,8 @@
 import { inject, injectable } from "inversify";
-import AxiosHttpMiddlewareInterface from "varie/lib/http/AxiosHttpMiddlewareInterface";
+import HttpMiddlewareInterface from "varie/lib/http/interfaces/HttpMiddlewareInterface";
 
 @injectable()
-export default class AuthMiddleware implements AxiosHttpMiddlewareInterface {
+export default class AuthMiddleware implements HttpMiddlewareInterface {
   protected authService;
 
   constructor(@inject("AuthService") authService) {

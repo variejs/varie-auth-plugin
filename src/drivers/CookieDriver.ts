@@ -3,6 +3,8 @@ import AuthDriverInterface from "./AuthDriverInterface";
 import ConfigInterface from "varie/lib/config/ConfigInterface";
 import HttpServiceInterface from "varie/lib/http/HttpServiceInterface";
 import StateServiceInterface from "varie/lib/state/StateServiceInterface";
+import HttpResponseInterface from "varie/lib/http/interfaces/HttpResponseInterface";
+import HttpRequestConfigInterface from "varie/lib/http/interfaces/HttpRequestConfigInterface";
 
 @injectable()
 export default class CookieDriver implements AuthDriverInterface {
@@ -26,21 +28,21 @@ export default class CookieDriver implements AuthDriverInterface {
     this.storagePath = this.authService.getGuardConfig("storagePath");
   }
 
-  public async loginResponse(response) {
+  public async loginResponse(response: HttpResponseInterface) {
     return await this.$store.dispatch("auth/getUser");
   }
 
-  public async logoutResponse(response) {
+  public async logoutResponse(response: HttpResponseInterface) {
     return;
   }
 
-  public async registerResponse(response) {
+  public async registerResponse(response: HttpResponseInterface) {
     if (this.authService.getGuardConfig("loginAfterRegister")) {
       return await this.$store.dispatch("auth/getUser");
     }
   }
 
-  public async resetPasswordResponse(response) {
+  public async resetPasswordResponse(response: HttpResponseInterface) {
     if (this.authService.getGuardConfig("loginAfterReset")) {
       return await this.$store.dispatch("auth/getUser");
     }
@@ -61,11 +63,11 @@ export default class CookieDriver implements AuthDriverInterface {
     );
   }
 
-  public async middlewareRequest(config) {
+  public async middlewareRequest(config: HttpRequestConfigInterface) {
     return config;
   }
 
-  public async middlewareResponse(response) {
+  public async middlewareResponse(response: HttpResponseInterface) {
     return response;
   }
 }

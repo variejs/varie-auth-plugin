@@ -4,14 +4,14 @@
   "description": "A authentication plugin for Varie",
   "main": "./index.js",
   "devDependencies": {
-    "@types/node": "^10.12.18",
-    "@types/webpack-env": "^1.13.6",
+    "@types/node": "^10.14.1",
+    "@types/webpack-env": "^1.13.9",
     "husky": "^0.14.3",
-    "lint-staged": "^8.1.0",
-    "typescript": "^3.2.2"
+    "lint-staged": "^8.1.5",
+    "typescript": "^3.3.4000"
   },
   "peerDependencies": {
-    "varie": "^0.9.0"
+    "varie": "^0.11.8"
   },
   "scripts": {
     "build": "tsc",

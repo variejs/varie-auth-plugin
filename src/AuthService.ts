@@ -14,29 +14,29 @@ export default class AuthService implements AuthServiceInterface {
   constructor(
     @inject("app") app,
     @inject("ConfigService") configService: ConfigInterface,
-    @inject("HttpService") httpService: HttpServiceInterface
+    @inject("HttpService") httpService: HttpServiceInterface,
   ) {
     this.app = app;
     this.httpService = httpService;
     this.configService = configService;
   }
 
-  public login(data, guard?) {
+  public login(data: object, guard?: string): Promise<Response> {
     return this.httpService
       .post(this.getGuardConfig("endpoints.login", guard), data, {
-        guard
+        guard,
       })
-      .then(response => {
+      .then((response) => {
         return this.getDriver(guard).loginResponse(response);
       });
   }
 
-  public refresh(guard?) {
+  public refresh(guard?: string) {
     return this.httpService
       .post(this.getGuardConfig("endpoints.refresh", guard), {
-        guard
+        guard,
       })
-      .then(response => {
+      .then((response) => {
         let driver = this.getDriver(guard);
         if (driver.refreshResponse) {
           return driver.refreshResponse(response);
@@ -44,55 +44,55 @@ export default class AuthService implements AuthServiceInterface {
       });
   }
 
-  public logout(guard?) {
+  public logout(guard?: string) {
     return this.httpService
       .post(this.getGuardConfig("endpoints.logout", guard), {
-        guard
+        guard,
       })
-      .then(response => {
+      .then((response) => {
         return this.getDriver(guard).logoutResponse(response);
       });
   }
 
-  public register(data, guard?) {
+  public register(data: object, guard?: string) {
     return this.httpService
       .post(this.getGuardConfig("endpoints.register", guard), data, {
-        guard
+        guard,
       })
-      .then(response => {
+      .then((response) => {
         return this.getDriver(guard).registerResponse(response);
       });
   }
 
-  public forgotPasswordRequest(data, guard?) {
+  public forgotPasswordRequest(data: object, guard?: string) {
     return this.httpService
       .post(this.getGuardConfig("endpoints.forgotPassword", guard), data, {
-        guard
+        guard,
       })
-      .then(response => {
+      .then((response) => {
         return response;
       });
   }
 
-  public resetPassword(data, guard?) {
+  public resetPassword(data: object, guard?: string) {
     return this.httpService
       .post(this.getGuardConfig("endpoints.resetPassword", guard), data, {
-        guard
+        guard,
       })
-      .then(response => {
+      .then((response) => {
         return this.getDriver(guard).resetPasswordResponse(response);
       });
   }
 
-  public getUser(guard?) {
+  public getUser(guard?: string) {
     return this.httpService.get(this.getGuardConfig("endpoints.user", guard), {
-      guard
+      guard,
     });
   }
 
-  public isLoggedIn(guard?) {
+  public isLoggedIn(guard?: string) {
     return this.getDriver(guard).isLoggedIn(
-      guard || this.configService.get("auth.defaults.guard")
+      guard || this.configService.get("auth.defaults.guard"),
     );
   }
 
@@ -100,9 +100,9 @@ export default class AuthService implements AuthServiceInterface {
     return this.configService.get("auth.defaults.guard");
   }
 
-  public getGuardConfig(config, guard?): any {
+  public getGuardConfig(config: string, guard?: string): any {
     return this.configService.get(
-      `auth.guards.${guard || this.getDefaultGuard()}.${config}`
+      `auth.guards.${guard || this.getDefaultGuard()}.${config}`,
     );
   }
 
@@ -114,7 +114,14 @@ export default class AuthService implements AuthServiceInterface {
     return this.app.make(this.getGuardConfig("driver", guard));
   }
 
+  public clearAuthStorage(guard?: string) {
+    let driver = this.getDriver(guard || this.getDefaultGuard());
+    if (driver.clearStorage) {
+      driver.clearStorage(guard || this.getDefaultGuard());
+    }
+  }
+
   public getStoragePath() {
-    return this.configService.get("auth.defaults.storagePath", "admin");
+    return this.configService.get("auth.defaults.storagePath");
   }
 }

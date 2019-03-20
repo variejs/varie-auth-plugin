@@ -70,7 +70,7 @@ export default class JwtDriver implements AuthDriverInterface {
     let guard = config.guard || this.authService.getDefaultGuard();
     let token = this.getAuthToken(guard);
     if (token) {
-      config = this.setToken(token, config);
+      this.setToken(token, config);
       if (
         !config.url.includes(
           this.authService.getGuardConfig("endpoints.refresh"),
@@ -81,10 +81,11 @@ export default class JwtDriver implements AuthDriverInterface {
           () => {
             token = this.getAuthToken(guard);
             if (token) {
-              return this.setToken(token, config);
+              this.setToken(token, config);
             }
           },
           () => {
+            this.setToken(null, config);
             this.removeAuthToken(guard);
           },
         );

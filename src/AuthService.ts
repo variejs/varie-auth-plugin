@@ -2,7 +2,7 @@ import { injectable, inject } from "inversify";
 import AuthServiceInterface from "./AuthServiceInterface";
 import ConfigInterface from "varie/lib/config/ConfigInterface";
 import AuthDriverInterface from "./drivers/AuthDriverInterface";
-import HttpServiceInterface from "varie/lib/http/HttpServiceInterface";
+import HttpServiceInterface from "./interfaces/HttpServiceInterface";
 import ApplicationInterface from "varie/lib/foundation/ApplicationInterface";
 
 @injectable()

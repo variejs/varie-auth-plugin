@@ -1,22 +1,25 @@
 {
   "name": "varie-auth-plugin",
-  "version": "0.1.10",
+  "version": "0.2.0",
   "description": "A authentication plugin for Varie",
   "main": "./index.js",
   "devDependencies": {
     "@types/node": "^10.14.1",
     "@types/webpack-env": "^1.13.9",
-    "husky": "^0.14.3",
-    "lint-staged": "^8.1.5",
-    "typescript": "^3.3.4000"
+    "husky": "^3.0.2",
+    "lint-staged": "^9.2.1",
+    "typescript": "^3.5.3"
   },
   "peerDependencies": {
-    "varie": "^0.11.8"
+    "vue": "^2.6.0",
+    "vuex": "^3.1.0",
+    "varie": "^0.12.5"
   },
   "scripts": {
     "build": "tsc",
     "watch": "tsc --watch",
-    "precommit": "lint-staged"
+    "precommit": "lint-staged",
+    "peer": "npm install --no-save vue vuex varie"
   },
   "lint-staged": {
     "/src/*.{js,json,css,md,vue}": [

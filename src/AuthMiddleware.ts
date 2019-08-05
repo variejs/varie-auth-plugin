@@ -9,8 +9,8 @@ export default class AuthMiddleware implements HttpMiddlewareInterface {
     this.authService = authService;
   }
 
-  public request(config) {
-    return this.authService
+  public async request(config) {
+    return await this.authService
       .getDriver(config.guard)
       .middlewareRequest(config)
       .then((config) => {
@@ -18,8 +18,8 @@ export default class AuthMiddleware implements HttpMiddlewareInterface {
       });
   }
 
-  public response(response) {
-    return this.authService
+  public async response(response) {
+    return await this.authService
       .getDriver(response.config.guard)
       .middlewareResponse(response)
       .then((response) => {

@@ -5,15 +5,7 @@
     "lib": ["es2017", "dom", "dom.iterable"],
     "target": "es5",
     "strict": true,
-    "types": [
-      "vue",
-      "vuex",
-      "node",
-      "validator",
-      "vue-router",
-      "webpack-env",
-      "reflect-metadata"
-    ],
+    "types": ["vue", "vuex", "node"],
     "declaration": true,
     "noImplicitAny": false,
     "inlineSourceMap": true,

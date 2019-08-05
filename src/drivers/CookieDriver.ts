@@ -4,16 +4,15 @@ import ConfigInterface from "varie/lib/config/ConfigInterface";
 import HttpServiceInterface from "varie/lib/http/HttpServiceInterface";
 import StateServiceInterface from "varie/lib/state/StateServiceInterface";
 import HttpResponseInterface from "varie/lib/http/interfaces/HttpResponseInterface";
-import HttpRequestConfigInterface from "varie/lib/http/interfaces/HttpRequestConfigInterface";
+import HttpRequestConfigInterface from "./../interfaces/HttpRequestConfigInterface";
 
 @injectable()
 export default class CookieDriver implements AuthDriverInterface {
   protected $store;
   protected authService;
   protected httpService;
-  protected configService;
-
   protected storagePath;
+  protected configService;
 
   constructor(
     @inject("AuthService") authService,

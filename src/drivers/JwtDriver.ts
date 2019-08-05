@@ -4,7 +4,7 @@ import JwtTokenInterface from "../interfaces/JwtTokenInterface";
 import StateServiceInterface from "varie/lib/state/StateServiceInterface";
 import StorageServiceInterface from "varie/lib/storage/StorageServiceInterface";
 import HttpResponseInterface from "varie/lib/http/interfaces/HttpResponseInterface";
-import HttpRequestConfigInterface from "varie/lib/http/interfaces/HttpRequestConfigInterface";
+import HttpRequestConfigInterface from "./../interfaces/HttpRequestConfigInterface";
 
 @injectable()
 export default class JwtDriver implements AuthDriverInterface {
@@ -79,9 +79,9 @@ export default class JwtDriver implements AuthDriverInterface {
         !config.url.includes(
           this.authService.getGuardConfig("endpoints.refresh"),
         ) &&
-        token.expires_at < new Date().getTime()
+        token.expires_at <= new Date().getTime()
       ) {
-        return this.authService.refresh().then(
+        await this.authService.refresh().then(
           () => {
             token = this.getAuthToken(guard);
             if (token) {
@@ -116,9 +116,7 @@ export default class JwtDriver implements AuthDriverInterface {
     token: JwtTokenInterface,
     config: HttpRequestConfigInterface,
   ) {
-    config.headers.common.Authorization = `${token.token_type} ${
-      token.access_token
-    }`;
+    config.headers.common.Authorization = `${token.token_type} ${token.access_token}`;
     return config;
   }
 

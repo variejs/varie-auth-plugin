@@ -5,11 +5,11 @@ import StateServiceInterface from "varie/lib/state/StateServiceInterface";
 import StorageServiceInterface from "varie/lib/storage/StorageServiceInterface";
 import HttpResponseInterface from "varie/lib/http/interfaces/HttpResponseInterface";
 import HttpRequestConfigInterface from "./../interfaces/HttpRequestConfigInterface";
+import HttpErrorInterface from "varie/lib/http/interfaces/HttpErrorInterface";
 
 @injectable()
 export default class JwtDriver implements AuthDriverInterface {
   protected $store;
-  protected storagePath;
   protected authService;
   protected storageService;
 
@@ -21,7 +21,6 @@ export default class JwtDriver implements AuthDriverInterface {
     this.authService = authService;
     this.storageService = storageService;
     this.$store = stateService.getStore();
-    this.storagePath = this.authService.getStoragePath();
   }
 
   public async loginResponse(response: HttpResponseInterface) {
@@ -38,17 +37,37 @@ export default class JwtDriver implements AuthDriverInterface {
   }
 
   public async registerResponse(response: HttpResponseInterface) {
-    if (this.authService.getGuardConfig("loginAfterRegister")) {
+    if (
+      this.authService.getGuardConfig(
+        "loginAfterRegister",
+        this.authService.getGuardFromResponse(response),
+      )
+    ) {
       this.setAuthToken(response);
       return await this.$store.dispatch("auth/getUser");
     }
   }
 
   public async resetPasswordResponse(response: HttpResponseInterface) {
-    if (this.authService.getGuardConfig("loginAfterReset")) {
+    if (
+      this.authService.getGuardConfig(
+        "loginAfterReset",
+        this.authService.getGuardFromResponse(response),
+      )
+    ) {
       this.setAuthToken(response);
       return await this.$store.dispatch("auth/getUser");
     }
+  }
+
+  public refreshData(guard: string) {
+    let token = this.getAuthToken(guard);
+    if (token && token.refresh_token) {
+      return {
+        refresh_token: token.refresh_token,
+      };
+    }
+    return {};
   }
 
   public async isLoggedIn(guard: string) {
@@ -61,7 +80,7 @@ export default class JwtDriver implements AuthDriverInterface {
         () => {
           return true;
         },
-        () => {
+        (error: HttpErrorInterface) => {
           return false;
         },
       );
@@ -77,11 +96,11 @@ export default class JwtDriver implements AuthDriverInterface {
       if (
         config.url &&
         !config.url.includes(
-          this.authService.getGuardConfig("endpoints.refresh"),
+          this.authService.getGuardConfig("endpoints.refresh", guard),
         ) &&
         token.expires_at <= new Date().getTime()
       ) {
-        await this.authService.refresh().then(
+        await this.authService.refresh(guard).then(
           () => {
             token = this.getAuthToken(guard);
             if (token) {
@@ -109,7 +128,7 @@ export default class JwtDriver implements AuthDriverInterface {
   }
 
   public clearStorage(guard: string): void {
-    this.storageService.remove(`${this.storagePath}.${guard}`);
+    this.storageService.remove(this.getStoragePath(guard));
   }
 
   protected setTokenInHeader(
@@ -121,7 +140,7 @@ export default class JwtDriver implements AuthDriverInterface {
   }
 
   protected getAuthToken(guard: string): JwtTokenInterface | null {
-    let token = this.storageService.get(`${this.storagePath}.${guard}`);
+    let token = this.storageService.get(this.getStoragePath(guard));
     try {
       return JSON.parse(token);
     } catch (e) {
@@ -131,18 +150,20 @@ export default class JwtDriver implements AuthDriverInterface {
   }
 
   protected setAuthToken(response: HttpResponseInterface): void {
+    let guard = this.authService.getGuardFromResponse(response);
+    let token = this.authService.getGuardConfig("token", guard);
     this.storageService.set(
-      `${this.storagePath}.${this.authService.getGuardFromResponse(response)}`,
+      this.getStoragePath(guard),
       JSON.stringify({
-        access_token:
-          response.data[this.authService.getGuardConfig("token.accessToken")],
-        token_type:
-          response.data[this.authService.getGuardConfig("token.tokenTypeName")],
+        access_token: response.data[token.accessToken],
+        token_type: response.data[token.tokenTypeName],
         expires_at:
-          new Date().getTime() +
-          1000 *
-            response.data[this.authService.getGuardConfig("token.expiresIn")],
+          new Date().getTime() + 1000 * response.data[token.expiresIn],
       }),
     );
+  }
+
+  protected getStoragePath(guard?: string) {
+    return this.authService.getGuardConfig("token.storagePath", guard);
   }
 }

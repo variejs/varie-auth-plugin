@@ -6,6 +6,7 @@ export default interface AuthDriverInterface {
   logoutResponse(response: HttpResponseInterface): Promise<any>;
   clearStorage?(guard: string): void;
   isLoggedIn(guard: string): Promise<boolean>;
+  refreshData?(guard: string): object;
   refreshResponse?(response: HttpResponseInterface): Promise<any>;
   registerResponse(response: HttpResponseInterface): Promise<any>;
   resetPasswordResponse(response: HttpResponseInterface): Promise<any>;

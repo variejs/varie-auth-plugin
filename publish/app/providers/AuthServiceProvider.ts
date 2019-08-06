@@ -24,7 +24,7 @@ export default class AuthServiceProvider extends ServiceProvider {
   }
 
   public async register() {
-    this.app.singleton("JwtDriver", JwtDriver);
+    // this.app.singleton("JwtDriver", JwtDriver);
     // this.app.singleton("CookieDriver", CookieDriver);
     this.app.bind("AuthService", AuthService);
   }

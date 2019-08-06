@@ -1,4 +1,6 @@
 export default interface AuthServiceInterface {
+  getDriver(guard: string);
+  getDefaultGuard(guard: string);
   login(data: any, guard?: string);
   refresh(guard?: string);
   logout(guard?: string);
@@ -8,6 +10,5 @@ export default interface AuthServiceInterface {
   getUser(guard?: string): Promise<any>;
   getGuardConfig(config: string, guard?: string);
   isLoggedIn(guard?: string): Promise<boolean>;
-  getStoragePath(): string;
   getGuardFromResponse(response): string;
 }

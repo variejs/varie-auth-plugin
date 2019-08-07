@@ -7,8 +7,6 @@
   <a href="https://discordapp.com/invite/yjBtbvm"><img src="https://img.shields.io/badge/chat-discord-7289DA.svg?style=flat-square"></a>
   <a href="https://www.paypal.me/lukepolo"><img src="https://img.shields.io/badge/$-donate-ff5f5f.svg?style=flat-square"></a>
 </p>  
-  
-> **Note:** This repository contains the core code of the Varie framework. Visit the main [Varie Repository](https://github.com/variejs/varie) to get started.
 
 ## Introduction
 

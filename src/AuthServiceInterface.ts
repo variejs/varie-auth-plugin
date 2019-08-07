@@ -2,7 +2,6 @@ export default interface AuthServiceInterface {
   getDriver(guard: string);
   getDefaultGuard(guard: string);
   login(data: any, guard?: string);
-  refresh(guard?: string);
   logout(guard?: string);
   register(data: any, guard?: string);
   forgotPasswordRequest(data: any, guard?: string);

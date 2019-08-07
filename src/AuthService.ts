@@ -35,22 +35,6 @@ export default class AuthService implements AuthServiceInterface {
       });
   }
 
-  public refresh(guard?: string) {
-    let driver = this.getDriver(guard);
-    if (!guard) {
-      guard = this.getDefaultGuard();
-    }
-    let data = (driver.refreshData && driver.refreshData(guard)) || {};
-
-    return this.httpService
-      .post(this.getGuardConfig("endpoints.refresh", guard), data)
-      .then((response) => {
-        if (driver.refreshResponse) {
-          return driver.refreshResponse(response);
-        }
-      });
-  }
-
   public logout(guard?: string) {
     if (!guard) {
       guard = this.getDefaultGuard();
@@ -137,15 +121,5 @@ export default class AuthService implements AuthServiceInterface {
     return this.app.make(
       this.getGuardConfig("driver", guard || this.getDefaultGuard()),
     );
-  }
-
-  public clearAuthStorage(guard?: string) {
-    if (!guard) {
-      guard = this.getDefaultGuard();
-    }
-    let driver = this.getDriver(guard);
-    if (driver.clearStorage) {
-      driver.clearStorage(guard);
-    }
   }
 }

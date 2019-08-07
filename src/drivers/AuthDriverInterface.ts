@@ -4,7 +4,6 @@ import HttpRequestConfigInterface from "varie/lib/http/interfaces/HttpRequestCon
 export default interface AuthDriverInterface {
   loginResponse(response: HttpResponseInterface): Promise<any>;
   logoutResponse(response: HttpResponseInterface): Promise<any>;
-  clearStorage?(guard: string): void;
   isLoggedIn(guard: string): Promise<boolean>;
   refreshData?(guard: string): object;
   refreshResponse?(response: HttpResponseInterface): Promise<any>;

@@ -34,8 +34,7 @@ export default {
       |
       | JWT Storage Driver
       |
-      | This driver is useful when your in a mobile app / contained environment that does not allow other
-      | sessions to access the local storage.
+      | This driver is useful when your application is isolated.
       |
       | Cookie Driver
       |

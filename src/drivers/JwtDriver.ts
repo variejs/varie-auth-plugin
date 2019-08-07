@@ -157,8 +157,8 @@ export default class JwtDriver implements AuthDriverInterface {
       JSON.stringify({
         access_token: response.data[token.accessToken],
         token_type: response.data[token.tokenTypeName],
-        expires_at:
-          new Date().getTime() + 1000 * response.data[token.expiresIn],
+        refresh_token: response.data[token.refreshToken],
+        expires_at: new Date().getTime() + (1000 * response.data[token.expiresIn]),
       }),
     );
   }

@@ -1,7 +1,6 @@
 import { inject, injectable } from "inversify";
 import AuthDriverInterface from "./AuthDriverInterface";
-import ConfigInterface from "varie/lib/config/ConfigInterface";
-import HttpServiceInterface from "varie/lib/http/HttpServiceInterface";
+import CookieInterface from "varie/lib/cookies/CookieInterface";
 import StateServiceInterface from "varie/lib/state/StateServiceInterface";
 import HttpResponseInterface from "varie/lib/http/interfaces/HttpResponseInterface";
 import HttpRequestConfigInterface from "./../interfaces/HttpRequestConfigInterface";
@@ -10,21 +9,16 @@ import HttpRequestConfigInterface from "./../interfaces/HttpRequestConfigInterfa
 export default class CookieDriver implements AuthDriverInterface {
   protected $store;
   protected authService;
-  protected httpService;
-  protected storagePath;
-  protected configService;
+  protected cookieService;
 
   constructor(
     @inject("AuthService") authService,
-    @inject("ConfigService") configService: ConfigInterface,
-    @inject("HttpService") httpService: HttpServiceInterface,
     @inject("StateService") stateService: StateServiceInterface,
+    @inject("CookieService") cookieService: CookieInterface,
   ) {
-    this.httpService = httpService;
     this.authService = authService;
-    this.configService = configService;
+    this.cookieService = cookieService;
     this.$store = stateService.getStore();
-    this.storagePath = this.authService.getGuardConfig("storagePath");
   }
 
   public async loginResponse(response: HttpResponseInterface) {
@@ -36,30 +30,40 @@ export default class CookieDriver implements AuthDriverInterface {
   }
 
   public async registerResponse(response: HttpResponseInterface) {
-    if (this.authService.getGuardConfig("loginAfterRegister")) {
+    if (
+      this.authService.getGuardConfig(
+        "loginAfterRegister",
+        this.authService.getGuardFromResponse(response),
+      )
+    ) {
       return await this.$store.dispatch("auth/getUser");
     }
   }
 
   public async resetPasswordResponse(response: HttpResponseInterface) {
-    if (this.authService.getGuardConfig("loginAfterReset")) {
+    if (
+      this.authService.getGuardConfig(
+        "loginAfterReset",
+        this.authService.getGuardFromResponse(response),
+      )
+    ) {
       return await this.$store.dispatch("auth/getUser");
     }
   }
 
-  public async isLoggedIn() {
-    if (this.$store.state.auth.user) {
+  public async isLoggedIn(guard: string): Promise<boolean> {
+    if (this.$store.getters["auth/user"](guard)) {
       return true;
     }
 
-    return await this.$store.dispatch("auth/getUser").then(
-      () => {
-        return true;
-      },
-      () => {
-        return false;
-      },
-    );
+    let cookieName = this.authService.getGuardConfig("cookie.name", guard);
+    if (!cookieName || this.cookieService.get(cookieName)) {
+      return this.$store
+        .dispatch("auth/getUser")
+        .then(() => true)
+        .catch(() => false);
+    }
+    return false;
   }
 
   public async middlewareRequest(config: HttpRequestConfigInterface) {

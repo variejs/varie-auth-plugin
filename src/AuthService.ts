@@ -3,6 +3,7 @@ import AuthServiceInterface from "./AuthServiceInterface";
 import ConfigInterface from "varie/lib/config/ConfigInterface";
 import AuthDriverInterface from "./drivers/AuthDriverInterface";
 import HttpServiceInterface from "./interfaces/HttpServiceInterface";
+import HttpResponseInterface from "./interfaces/HttpResponseInterface";
 import ApplicationInterface from "varie/lib/foundation/ApplicationInterface";
 
 @injectable()
@@ -22,6 +23,9 @@ export default class AuthService implements AuthServiceInterface {
   }
 
   public login(data: object, guard?: string): Promise<Response> {
+    if (!guard) {
+      guard = this.getDefaultGuard();
+    }
     return this.httpService
       .post(this.getGuardConfig("endpoints.login", guard), data, {
         guard,
@@ -31,20 +35,10 @@ export default class AuthService implements AuthServiceInterface {
       });
   }
 
-  public refresh(guard?: string) {
-    return this.httpService
-      .post(this.getGuardConfig("endpoints.refresh", guard), {
-        guard,
-      })
-      .then((response) => {
-        let driver = this.getDriver(guard);
-        if (driver.refreshResponse) {
-          return driver.refreshResponse(response);
-        }
-      });
-  }
-
   public logout(guard?: string) {
+    if (!guard) {
+      guard = this.getDefaultGuard();
+    }
     return this.httpService
       .post(this.getGuardConfig("endpoints.logout", guard), {
         guard,
@@ -55,6 +49,9 @@ export default class AuthService implements AuthServiceInterface {
   }
 
   public register(data: object, guard?: string) {
+    if (!guard) {
+      guard = this.getDefaultGuard();
+    }
     return this.httpService
       .post(this.getGuardConfig("endpoints.register", guard), data, {
         guard,
@@ -65,6 +62,9 @@ export default class AuthService implements AuthServiceInterface {
   }
 
   public forgotPasswordRequest(data: object, guard?: string) {
+    if (!guard) {
+      guard = this.getDefaultGuard();
+    }
     return this.httpService
       .post(this.getGuardConfig("endpoints.forgotPassword", guard), data, {
         guard,
@@ -75,6 +75,9 @@ export default class AuthService implements AuthServiceInterface {
   }
 
   public resetPassword(data: object, guard?: string) {
+    if (!guard) {
+      guard = this.getDefaultGuard();
+    }
     return this.httpService
       .post(this.getGuardConfig("endpoints.resetPassword", guard), data, {
         guard,
@@ -85,43 +88,38 @@ export default class AuthService implements AuthServiceInterface {
   }
 
   public getUser(guard?: string) {
+    if (!guard) {
+      guard = this.getDefaultGuard();
+    }
     return this.httpService.get(this.getGuardConfig("endpoints.user", guard), {
       guard,
     });
   }
 
-  public isLoggedIn(guard?: string) {
-    return this.getDriver(guard).isLoggedIn(
-      guard || this.configService.get("auth.defaults.guard"),
-    );
+  public async isLoggedIn(guard?: string) {
+    if (!guard) {
+      guard = this.getDefaultGuard();
+    }
+    return await this.getDriver(guard).isLoggedIn(guard);
   }
 
-  public getDefaultGuard() {
+  public getDefaultGuard(): string {
     return this.configService.get("auth.defaults.guard");
   }
 
-  public getGuardConfig(config: string, guard?: string): any {
+  public getGuardConfig(config: string, guard: string): any {
     return this.configService.get(
       `auth.guards.${guard || this.getDefaultGuard()}.${config}`,
     );
   }
 
-  public getGuardFromResponse(response) {
+  public getGuardFromResponse(response: HttpResponseInterface) {
     return response.config.guard || this.getDefaultGuard();
   }
 
-  public getDriver(guard?): AuthDriverInterface {
-    return this.app.make(this.getGuardConfig("driver", guard));
-  }
-
-  public clearAuthStorage(guard?: string) {
-    let driver = this.getDriver(guard || this.getDefaultGuard());
-    if (driver.clearStorage) {
-      driver.clearStorage(guard || this.getDefaultGuard());
-    }
-  }
-
-  public getStoragePath() {
-    return this.configService.get("auth.defaults.storagePath");
+  public getDriver(guard?: string): AuthDriverInterface {
+    return this.app.make(
+      this.getGuardConfig("driver", guard || this.getDefaultGuard()),
+    );
   }
 }

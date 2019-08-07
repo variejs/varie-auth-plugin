@@ -18,4 +18,5 @@ Documentation can be found on the [Varie website](https://varie.io/docs/latest/a
 
 ## License
 
-Varie Auth Plugin is open-sourced software licensed under the MIT license.
+The Varie framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
+

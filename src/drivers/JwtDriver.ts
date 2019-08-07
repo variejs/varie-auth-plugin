@@ -16,7 +16,7 @@ export default class JwtDriver implements AuthDriverInterface {
   constructor(
     @inject("AuthService") authService,
     @inject("StateService") stateService: StateServiceInterface,
-    @inject("StorageService") storageService: StorageServiceInterface
+    @inject("StorageService") storageService: StorageServiceInterface,
   ) {
     this.authService = authService;
     this.storageService = storageService;
@@ -40,7 +40,7 @@ export default class JwtDriver implements AuthDriverInterface {
     if (
       this.authService.getGuardConfig(
         "loginAfterRegister",
-        this.authService.getGuardFromResponse(response)
+        this.authService.getGuardFromResponse(response),
       )
     ) {
       this.setAuthToken(response);
@@ -52,7 +52,7 @@ export default class JwtDriver implements AuthDriverInterface {
     if (
       this.authService.getGuardConfig(
         "loginAfterReset",
-        this.authService.getGuardFromResponse(response)
+        this.authService.getGuardFromResponse(response),
       )
     ) {
       this.setAuthToken(response);
@@ -64,7 +64,7 @@ export default class JwtDriver implements AuthDriverInterface {
     let token = this.getAuthToken(guard);
     if (token && token.refresh_token) {
       return {
-        refresh_token: token.refresh_token
+        refresh_token: token.refresh_token,
       };
     }
     return {};
@@ -82,7 +82,7 @@ export default class JwtDriver implements AuthDriverInterface {
         },
         (error: HttpErrorInterface) => {
           return false;
-        }
+        },
       );
     }
     return false;
@@ -96,7 +96,7 @@ export default class JwtDriver implements AuthDriverInterface {
       if (
         config.url &&
         !config.url.includes(
-          this.authService.getGuardConfig("endpoints.refresh", guard)
+          this.authService.getGuardConfig("endpoints.refresh", guard),
         ) &&
         token.expires_at <= new Date().getTime()
       ) {
@@ -116,7 +116,7 @@ export default class JwtDriver implements AuthDriverInterface {
               delete config.headers.common.Authorization;
             }
             this.clearStorage(guard);
-          }
+          },
         );
       }
     }
@@ -133,7 +133,7 @@ export default class JwtDriver implements AuthDriverInterface {
 
   protected setTokenInHeader(
     token: JwtTokenInterface,
-    config: HttpRequestConfigInterface
+    config: HttpRequestConfigInterface,
   ) {
     config.headers.common.Authorization = `${token.token_type} ${token.access_token}`;
     return config;
@@ -157,8 +157,9 @@ export default class JwtDriver implements AuthDriverInterface {
       JSON.stringify({
         access_token: response.data[token.accessToken],
         token_type: response.data[token.tokenTypeName],
-        expires_at: new Date().getTime() + 1000 * response.data[token.expiresIn]
-      })
+        expires_at:
+          new Date().getTime() + 1000 * response.data[token.expiresIn],
+      }),
     );
   }
 

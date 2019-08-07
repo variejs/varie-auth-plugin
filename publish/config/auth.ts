@@ -18,7 +18,7 @@ export default {
   |
   */
   defaults: {
-    guard: "user"
+    guard: "user",
   },
   guards: {
     user: {
@@ -77,7 +77,7 @@ export default {
         refresh: "/api/refresh",
         register: "/api/register",
         resetPassword: "/api/reset-password",
-        forgotPassword: "/api/forgot-password"
+        forgotPassword: "/api/forgot-password",
       },
 
       /*
@@ -98,7 +98,7 @@ export default {
         | attempt to get your user.
         |
         */
-        name: "token"
+        name: "token",
       },
       token: {
         /*
@@ -141,8 +141,8 @@ export default {
         | try to refresh your token with the supplied field.
         |
         */
-        refreshToken: "refresh_token"
-      }
-    }
-  }
+        refreshToken: "refresh_token",
+      },
+    },
+  },
 };

@@ -14,7 +14,7 @@ export default class CookieDriver implements AuthDriverInterface {
   constructor(
     @inject("AuthService") authService,
     @inject("StateService") stateService: StateServiceInterface,
-    @inject("CookieService") cookieService: CookieInterface
+    @inject("CookieService") cookieService: CookieInterface,
   ) {
     this.authService = authService;
     this.cookieService = cookieService;
@@ -33,7 +33,7 @@ export default class CookieDriver implements AuthDriverInterface {
     if (
       this.authService.getGuardConfig(
         "loginAfterRegister",
-        this.authService.getGuardFromResponse(response)
+        this.authService.getGuardFromResponse(response),
       )
     ) {
       return await this.$store.dispatch("auth/getUser");
@@ -44,7 +44,7 @@ export default class CookieDriver implements AuthDriverInterface {
     if (
       this.authService.getGuardConfig(
         "loginAfterReset",
-        this.authService.getGuardFromResponse(response)
+        this.authService.getGuardFromResponse(response),
       )
     ) {
       return await this.$store.dispatch("auth/getUser");

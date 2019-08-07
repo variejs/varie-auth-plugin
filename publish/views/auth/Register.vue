@@ -70,14 +70,14 @@ export default Vue.extend({
         name: null,
         email: null,
         password: null,
-        passwordConfirmed: null,
+        passwordConfirmed: null
       }).validation({
         rules: {
           name: "required",
           email: "required|email",
-          password: "required|min:8|confirmed",
-        },
-      }),
+          password: "required|min:8|confirmed"
+        }
+      })
     };
   },
   methods: {
@@ -86,15 +86,15 @@ export default Vue.extend({
         () => {
           this.form.reset();
           this.$router.push({
-            name: "dashboard",
+            name: "dashboard"
           });
         },
-        (error) => {
+        error => {
           // You should handle your error based on your error message
           this.alertService.showError("Registration Failed.");
-        },
+        }
       );
-    },
-  },
+    }
+  }
 });
 </script>

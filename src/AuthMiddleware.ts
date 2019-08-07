@@ -1,5 +1,7 @@
 import { inject, injectable } from "inversify";
+import HttpResponseInterface from "varie/lib/http/interfaces/HttpResponseInterface";
 import HttpMiddlewareInterface from "varie/lib/http/interfaces/HttpMiddlewareInterface";
+import HttpRequestConfigInterface from "varie/lib/http/interfaces/HttpRequestConfigInterface";
 
 @injectable()
 export default class AuthMiddleware implements HttpMiddlewareInterface {
@@ -9,20 +11,20 @@ export default class AuthMiddleware implements HttpMiddlewareInterface {
     this.authService = authService;
   }
 
-  public async request(config) {
+  public async request(config): Promise<HttpRequestConfigInterface> {
     return await this.authService
       .getDriver(config.guard)
       .middlewareRequest(config)
-      .then((config) => {
+      .then(config => {
         return config;
       });
   }
 
-  public async response(response) {
+  public async response(response): Promise<HttpResponseInterface> {
     return await this.authService
       .getDriver(response.config.guard)
       .middlewareResponse(response)
-      .then((response) => {
+      .then(response => {
         return response;
       });
   }

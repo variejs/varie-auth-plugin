@@ -9,5 +9,5 @@ export default {
   AuthArea,
   Register,
   ResetPassword,
-  ForgotPassword,
+  ForgotPassword
 };

@@ -33,12 +33,12 @@ export default Vue.extend({
   data() {
     return {
       form: this.createForm({
-        email: null,
+        email: null
       }).validation({
         rules: {
-          email: "required|email",
-        },
-      }),
+          email: "required|email"
+        }
+      })
     };
   },
   methods: {
@@ -47,15 +47,15 @@ export default Vue.extend({
         () => {
           this.form.reset();
           this.$router.push({
-            name: "login",
+            name: "login"
           });
         },
-        (error) => {
+        error => {
           // You should handle your error based on your error message
           this.alertService.showError("Forgot Password Failed.");
-        },
+        }
       );
-    },
-  },
+    }
+  }
 });
 </script>

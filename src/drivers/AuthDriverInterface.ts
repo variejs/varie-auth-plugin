@@ -11,9 +11,9 @@ export default interface AuthDriverInterface {
   registerResponse(response: HttpResponseInterface): Promise<any>;
   resetPasswordResponse(response: HttpResponseInterface): Promise<any>;
   middlewareRequest(
-    config: HttpRequestConfigInterface,
+    config: HttpRequestConfigInterface
   ): Promise<HttpRequestConfigInterface>;
   middlewareResponse(
-    response: HttpResponseInterface,
+    response: HttpResponseInterface
   ): Promise<HttpResponseInterface>;
 }

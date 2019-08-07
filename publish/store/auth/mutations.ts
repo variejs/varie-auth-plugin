@@ -14,8 +14,8 @@ export default function() {
     RESET_AUTH_AREA_DATA: (state: AuthState) => {
       state.authAreaData = Object.assign(state.authAreaData, {
         email: null,
-        password: null,
+        password: null
       });
-    },
+    }
   };
 }

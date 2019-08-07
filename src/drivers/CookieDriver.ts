@@ -56,7 +56,7 @@ export default class CookieDriver implements AuthDriverInterface {
       return true;
     }
 
-    let cookieName = this.authService.getGuardConfig("cookie.name", guard);
+    let cookieName = this.authService.getGuardConfig("cookieName", guard);
     if (!cookieName || this.cookieService.get(cookieName)) {
       return this.$store
         .dispatch("auth/getUser")

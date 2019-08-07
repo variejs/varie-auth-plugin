@@ -138,7 +138,7 @@ export default {
         |--------------------------------------------------------------------------
         |
         | This field is optional, when supplied Varie will automatically
-        | try to refresh your token with the supplied field.
+        | try to refresh your token with the supplied response field.
         |
         */
         refreshToken: "refresh_token",
